@@ -1,0 +1,2 @@
+#!/bin/bash
+sudo bash -c "apt update; apt -y full-upgrade; apt-get -y autoremove; apt-get -y autoclean"
