@@ -1,53 +1,14 @@
 #!/bin/bash
-
-echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
-sudo apt -y install ttf-mscorefonts-installer ;
+sudo apt -y install man-db vim-nox mc fdupes wget curl aria2 curlftpfs sshfs nfs-common cpio bzip2 lzop pigz unzip unrar swaks fio htop gddrescue tree nmon chromium-browser build-essential git python-software-properties pkg-config software-properties-common python-pip python3-pip python-dev python3-dev pypy openjdk-8-jdk openjfx ;
 echo wireshark-common wireshark-common/install-setuid select true | sudo debconf-set-selections
-sudo apt -y install wireshark ;
-sudo apt -y install python-software-properties pkg-config software-properties-common ;
-sudo apt -y install openssh-server ;
-sudo apt -y install man-db vim-nox mc fdupes ;
-sudo apt -y install wget curl aria2 curlftpfs sshfs nfs-common ;
-sudo apt -y install cpio bzip2 lzop pigz unzip unrar ;
-sudo apt -y install swaks fio htop gddrescue ;
-sudo apt -y install bridge-utils lxd ;
-sudo apt -y install build-essential git ;
-sudo apt -y install python-pip python3-pip python-dev python3-dev pypy ;
-sudo apt -y install openjdk-8-jdk openjfx ;
-sudo apt -y install postgresql-client postgresql-server-dev-all libdbd-pgsql libpostgresql-jdbc-java pgadmin3 ;
-sudo apt -y install mariadb-client libmariadbd-dev libdbd-mysql libmysql-java ;
-sudo apt -y install sqlite3 sqliteman libdbd-sqlite3 ;
-sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds libjtds-java ;
-sudo apt -y install ffmpeg ;
-sudo apt -y install lame ;
-sudo apt -y install libavcodec-extra ;
-sudo apt -y install oxideqt-codecs-extra ;
-sudo apt -y install oggz-tools ;
-sudo apt -y install ogmtools ;
-sudo apt -y install mkvtoolnix ;
-sudo apt -y install opus-tools ;
-sudo apt -y install vorbis-tools ;
-sudo apt -y install vpx-tools ;
-sudo apt -y install flac ;
-sudo apt -y install cuetools shntool ;
-sudo apt -y install libdvdread4 ;
-sudo apt -y install dvdbackup ;
-sudo apt -y install libdvdcss2 ;
-sudo apt -y install mpv vlc ;
-sudo apt -y install chromium-browser chromium-codecs-ffmpeg-extra ;
-sudo apt -y install gstreamer1.0-fluendo-mp3 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
-sudo apt -y install sox ;
-sudo apt -y install graphviz ;
-sudo apt -y install gnuplot ;
-sudo apt -y install gimp ;
-sudo apt -y install openshot ;
-sudo apt -y install filezilla httrack webhttrack etherape nmap zenmap freerdp-x11 minicom geary ;
-sudo apt -y install calibre ;
-sudo apt -y install pdfshuffler ;
-sudo apt -y install scribus ;
-sudo apt -y install libreoffice libreoffice-math libreoffice-pdfimport libreoffice-report-builder libreoffice-wiki-publisher ;
-sudo apt -y install inkscape ;
-sudo apt -y install blender ;
-sudo apt -y install librecad freecad openscad ;
-sudo apt -y install lyx fonts-lyx texlive-publishers ;
-sudo apt -y install ooohg openclipart2-libreoffice openclipart-libreoffice ;
+sudo apt -y install openssh-server bridge-utils lxd wireshark filezilla httrack webhttrack etherape nmap zenmap freerdp-x11 minicom geary;
+sudo apt -y install postgresql-client postgresql-server-dev-all libdbd-pgsql libpostgresql-jdbc-java mariadb-client libmariadbd-dev libdbd-mysql libmysql-java sqlite3 sqliteman libdbd-sqlite3 freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds libjtds-java mdbtools-gmdb
+
+
+wget -O ttf-mscorefonts-installer_3.6_all.deb http://ftp.ca.debian.org/debian/pool/contrib/m/msttcorefonts/ttf-mscorefonts-installer_3.6_all.deb
+echo ttf-mscorefonts-installer msttcorefonts/accepted-mscorefonts-eula select true | sudo debconf-set-selections
+sudo dpkg -i ttf-mscorefonts-installer_3.6_all.deb
+
+sudo apt -y install ffmpeg lame libavcodec-extra oxideqt-codecs-extra oggz-tools ogmtools mkvtoolnix opus-tools vorbis-tools vpx-tools flac cuetools shntool libdvdread4 dvdbackup libdvdcss2 mpv vlc chromium-codecs-ffmpeg-extra sox gstreamer1.0-fluendo-mp3 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
+
+sudo apt -y install graphviz gnuplot gimp inkscape scribus calibre pdfshuffler posterazor libreoffice libreoffice-math libreoffice-pdfimport libreoffice-report-builder libreoffice-wiki-publisher lyx fonts-lyx texlive-publishers ooohg openclipart2-libreoffice openclipart-libreoffice blender openshot librecad freecad openscad ;
