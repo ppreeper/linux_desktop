@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir -p $HOME/.mozilla/extensions
 wget -O $HOME/.mozilla/extensions/disconnect.xpi https://addons.mozilla.org/firefox/downloads/latest/disconnect
 wget -O $HOME/.mozilla/extensions/ublock-origin.xpi https://addons.mozilla.org/firefox/downloads/latest/ublock-origin
 wget -O $HOME/.mozilla/extensions/downthemall.xpi https://addons.mozilla.org/firefox/downloads/latest/downthemall
