@@ -31,7 +31,7 @@ apm install symbols-tree-view
 apm install terminal-plus
 
 
-echo '
+echo '"*":
   "autocomplete-python":
     extraPaths: "$HOME/.virtualenvs/$PROJECT_NAME/lib/python2.7/site-packages;$HOME/.virtualenvs/$PROJECT_NAME/lib/python3.5/site-packages"
     pythonPaths: "$HOME/.virtualenvs/$PROJECT_NAME/bin/python;$PROJECT/venv/bin/python;/usr/bin/python"
