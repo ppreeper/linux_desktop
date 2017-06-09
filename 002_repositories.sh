@@ -12,4 +12,10 @@ sudo add-apt-repository -y ppa:ubuntu-lxc/lxd-stable
 # libreoffice
 sudo add-apt-repository -y ppa:libreoffice/ppa
 
+# ffmpeg3
+sudo add-apt-repository -y ppa:jonathonf/ffmpeg-3
+
+# lyx
+sudo add-apt-repository -y ppa:lyx-devel/release
+
 /usr/local/bin/update
