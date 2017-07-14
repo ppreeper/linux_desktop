@@ -2,7 +2,9 @@
 sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
 sudo pip install virtualenv
 sudo pip install virtualenvwrapper
-echo '
-export WORKON_HOME=$HOME/.virtualenvs
-. /usr/local/bin/virtualenvwrapper.sh
-' >> $HOME/.bashrc
+mkdir $HOME/.virtualenvs
+echo 'export WORKON_HOME=$HOME/.virtualenvs' | sudo tee /etc/profile.d/pyvenvs-home-path.sh
+echo "
+# python virtual envs
+. /usr/local/bin/virtualenvwrapper.sh" | tee -a $HOME/.bashrc
+
