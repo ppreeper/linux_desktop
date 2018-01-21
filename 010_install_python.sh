@@ -1,5 +1,5 @@
 #!/bin/bash
-sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
+sudo apt install -y python-pip python3-pip python-dev python3-dev pypy direnv
 sudo pip install virtualenv
 sudo pip install virtualenvwrapper
 mkdir $HOME/.virtualenvs
