@@ -42,3 +42,6 @@ echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee -a ${HOME}/.bashrc
 
 #CSS/SCSS
 sudo apt install -y sassc
+
+# rust
+curl https://sh.rustup.rs -sSf | sh
