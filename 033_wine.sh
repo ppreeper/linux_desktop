@@ -1,3 +1,3 @@
 #!/bin/bash
-sudo wine-stable
+sudo apt install -y wine-stable
 
