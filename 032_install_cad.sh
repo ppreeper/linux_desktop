@@ -1,2 +1,3 @@
 #!/bin/bash
-sudo apt -y install blender librecad freecad
+sudo apt -y install librecad ;
+sudo apt -y install freecad ;
