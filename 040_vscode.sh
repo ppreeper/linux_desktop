@@ -5,6 +5,7 @@ sudo apt -y install --fix-missing --fix-broken
 
 code --install-extension aaron-bond.better-comments
 code --install-extension DavidAnson.vscode-markdownlint
+code --install-extension akmittal.hugofy
 code --install-extension dbaeumer.jshint
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension ecmel.vscode-html-css
