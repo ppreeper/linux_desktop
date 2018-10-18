@@ -209,6 +209,12 @@ spause
 
 sudo docker run hello-world
 
+echo -e "\n# Install docker-compose"
+
+spause
+
+pip install docker-compose
+
 echo -e "\n# Install office"
 
 echo -e "\n## email client"
