@@ -96,11 +96,11 @@ sudo apt install -y python-pip python3-pip python-dev python3-dev pypy direnv
 
 spause
 
-sudo update-alternatives --install /usr/bin/python /usr/bin/python2 1
-sudo update-alternatives --install /usr/bin/python /usr/bin/python3 2
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 
-pip install virtualenv
-pip install virtualenvwrapper
+sudo -H pip install virtualenv
+sudo -H pip install virtualenvwrapper
 
 echo -e "\nexport WORKON_HOME=\${HOME}/.virtualenvs" | tee -a ${HOME}/.bashrc
 echo -e "# python virtual envs" | tee -a ${HOME}/.bashrc
