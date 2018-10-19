@@ -21,16 +21,26 @@ spause
 
 sudo chmod 777 /mnt
 mkdir ${HOME}/apps
-mkdir ${HOME}/.npm-packages
-mkdir ${HOME}/.virtualenvs
+mkdir ${HOME}/.cfg
+
+echo -e "\nsource \${HOME}/.cfg/*cfg" | tee -a ${HOME}/.bashrc
 
 echo -e "\n# Install base"
 
 spause
 
-sudo apt -y install man-db vim-nox mc fdupes wget curl aria2 curlftpfs sshfs nfs-common cpio bzip2 lzop pigz unzip unrar swaks fio htop gddrescue tree nmon cabextract duplicity
-sudo apt -y install chromium-browser firefox chrome-gnome-shell
-sudo apt -y install python3-software-properties pkg-config software-properties-common ca-certificates apt-transport-https
+sudo apt -y install man-db
+sudo apt -y install vim-nox
+sudo apt -y install mc fdupes cpio bzip2 lzop pigz unzip unrar fio cabextract tree gddrescue
+sudo apt -y install wget curl aria2
+sudo apt -y install curlftpfs sshfs nfs-common
+sudo apt -y install swaks
+sudo apt -y install htop nmon
+sudo apt -y install duplicity
+sudo apt -y install chrome-gnome-shell
+sudo apt -y install chromium-browser firefox
+sudo apt -y install ca-certificates apt-transport-https
+sudo apt -y install pkg-config software-properties-common 
 sudo apt -y install build-essential git
 
 echo -e "\n# Clone bin"
@@ -68,7 +78,7 @@ sudo apt -y install flac ;
 sudo apt -y install cuetools shntool ;
 sudo apt -y install libdvdread4 ;
 sudo apt -y install dvdbackup ;
-sudo apt -y install libdvdcss2 ;
+# sudo apt -y install libdvdcss2 ;
 sudo apt -y install chromium-codecs-ffmpeg-extra ;
 sudo apt -y install gstreamer1.0-fluendo-mp3 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
 
@@ -78,11 +88,8 @@ echo -e "\n# Install media"
 
 spause
 
-# sudo apt -y install mpv vlc sox graphviz gnuplot 
-# sudo apt -y install openshot ;
-# sudo apt -y install blender ;
 sudo snap install gimp
-sudo apt -y install graphviz
+sudo apt -y install graphviz gnuplot-nox
 sudo apt -y install gnome-mpv
 
 echo -e "\n# Install programming languages"
@@ -92,7 +99,7 @@ echo -e "\n## python"
 spause
 
 mkdir -p ${HOME}/.virtualenvs
-sudo apt install -y python-pip python3-pip python-dev python3-dev pypy direnv
+sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
 
 spause
 
@@ -102,11 +109,16 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
 
-echo -e "\nexport WORKON_HOME=\${HOME}/.virtualenvs" | tee -a ${HOME}/.bashrc
-echo -e "# python virtual envs" | tee -a ${HOME}/.bashrc
-echo -e ". /usr/local/bin/virtualenvwrapper.sh" | tee -a ${HOME}/.bashrc
+echo -e "export WORKON_HOME=\${HOME}/.virtualenvs" | tee ${HOME}/.cfg/20_python.cfg
+echo -e "# python virtual envs" | tee -a ${HOME}/.cfg/20_python.cfg
+echo -e ". /usr/local/bin/virtualenvwrapper.sh" | tee -a ${HOME}/.cfg/20_python.cfg
 
-echo -e "layout_virtualenv() {\n\tlocal venv_path=\"\${1}\"\n\tsource \${venv_path}/bin/activate\n}\nlayout_virtualenvwrapper() {\n\tlocal venv_path=\"\${WORKON_HOME}/\${1}\"\n\tlayout_virtualenv \${venv_path}}" | tee -a ${HOME}/.direnvrc
+
+sudo apt install -y direnv
+
+echo -e "layout_virtualenv() {\n\tlocal venv_path=\"\${1}\"\n\tsource \${venv_path}/bin/activate\n}\nlayout_virtualenvwrapper() {\n\tlocal venv_path=\"\${WORKON_HOME}/\${1}\"\n\tlayout_virtualenv \${venv_path}\n}" | tee ${HOME}/.direnvrc
+
+echo -e "eval \"\$(direnv hook bash)\"" | tee ${HOME}/.cfg/99_direnv.cfg
 
 echo -e "\n## java"
 
@@ -123,29 +135,16 @@ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt install -y nodejs
 
 echo -e "prefix=\${HOME}/.npm-packages" | tee ${HOME}/.npmrc
-echo -e "\nexport NPM_PACKAGES=\"\${HOME}/.npm-packages\"" | tee -a ${HOME}/.bashrc
-echo -e "PATH=\"\${NPM_PACKAGES}/bin:\${PATH}\"" | tee -a ${HOME}/.bashrc
+echo -e "\nexport NPM_PACKAGES=\"\${HOME}/.npm-packages\"" | tee ${HOME}/.cfg/20_nodejs.cfg
+echo -e "PATH=\"\${NPM_PACKAGES}/bin:\${PATH}\"" | tee -a ${HOME}/.cfg/20_nodejs.cfg
 
 echo -e "\n## go"
 
 spause
 
-MAJORVERSION="1.11"
-VER=$(wget -q -O - https://raw.githubusercontent.com/golang/go/release-branch.go${MAJORVERSION}/VERSION | grep ^go | sed 's/^go//')
-IDIR="/usr/local/opt"
-sudo mkdir -p ${IDIR}
-cd ${IDIR}
-sudo wget -O go${VER}.linux-amd64.tar.gz https://storage.googleapis.com/golang/go${VER}.linux-amd64.tar.gz
-sudo mv go go-old
-sudo tar zxvf go${VER}.linux-amd64.tar.gz
-sudo rm go${VER}.linux-amd64.tar.gz
-sudo rm -rf ${IDIR}/go-old
-sudo ln -f -s ${IDIR}/go/bin/go /usr/bin/go
-sudo ln -f -s ${IDIR}/go/bin/godoc /usr/bin/godoc
-sudo ln -f -s ${IDIR}/go/bin/gofmt /usr/bin/gofmt
+${HOME}/bin/updatego
 
-# echo -e "\nexport GOPATH=\"\${HOME}/go\"" | tee -a ${HOME}/.bashrc
-echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee -a ${HOME}/.bashrc
+echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee ${HOME}/.cfg/20_go.cfg
 
 echo -e "\n## css scss"
 
@@ -190,6 +189,7 @@ echo -e "\n## mongodb"
 spause
 
 sudo apt -y install mongodb-clients mongodb-tools
+sudo snap install robo3t-snap
 
 echo -e "\n# Install docker"
 
@@ -204,6 +204,7 @@ update
 
 sudo apt -y install docker-ce
 sudo usermod -a -G docker ${USER}
+sudo chmod a+rw /var/run/docker.sock
 
 spause
 
@@ -233,8 +234,6 @@ echo -e "\n# Install deskpub"
 
 spause
 
-# sudo apt -y install inkscape 
-# sudo apt -y install scribus 
 sudo apt -y install pdfshuffler
 sudo apt -y install posterazor
 sudo apt -y install cmark
@@ -263,10 +262,11 @@ echo -e "\n# vscode"
 
 spause
 
-wget -O code_1.24.1_amd64.deb https://go.microsoft.com/fwlink/?LinkID=760868
-sudo dpkg -i code_1.24.1_amd64.deb
+wget -O ${HOME}/code_amd64.deb https://go.microsoft.com/fwlink/?LinkID=760868
+sudo dpkg -i ${HOME}/code_amd64.deb
 sudo apt -y install --fix-missing --fix-broken
 update
+rm ${HOME}/code_amd64.deb
 
 spause
 
