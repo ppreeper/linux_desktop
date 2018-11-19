@@ -272,19 +272,21 @@ spause
 
 code --install-extension aaron-bond.better-comments
 code --install-extension akmittal.hugofy
-code --install-extension ckolkman.vscode-postgres-1.1.3
+code --install-extension bibhasdn.django-snippets
+code --install-extension ckolkman.vscode-postgres
 code --install-extension DavidAnson.vscode-markdownlint
 code --install-extension dbaeumer.jshint
 code --install-extension dbaeumer.vscode-eslint
 code --install-extension ecmel.vscode-html-css
-code --install-extension eg2.tslint-1.0.40
+code --install-extension eg2.tslint
 code --install-extension eriklynd.json-tools
 code --install-extension esbenp.prettier-vscode
-code --install-extension formulahendry.vscode-mysql-0.3.0
+code --install-extension formulahendry.vscode-mysql
 code --install-extension GrapeCity.gc-excelviewer
-code --install-extension gruntfuggly.todo-tree-0.0.92
+code --install-extension gruntfuggly.todo-tree
 code --install-extension HookyQR.beautify
 code --install-extension joaompinto.asciidoctor-vscode
+code --install-extension mdickin.markdown-shortcuts
 code --install-extension ms-mssql.mssql
 code --install-extension ms-python.python
 code --install-extension ms-vscode.Go
