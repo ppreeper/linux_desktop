@@ -53,7 +53,7 @@ echo -e "\n# Clone bin"
 
 spause
 
-git clone https://git.preeper.org/peterp/bin ${HOME}/bin
+git clone https://gitlab.arthomson.com/peterp/bin ${HOME}/bin
 
 echo -e "\n# Install utils"
 
