@@ -157,7 +157,7 @@ echo -e "\n## go"
 
 spause
 
-${HOME}/bin/updatego
+sudo snap install go --classic
 
 echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee ${HOME}/.cfg/20_go.cfg
 
