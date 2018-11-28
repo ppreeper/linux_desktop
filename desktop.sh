@@ -23,7 +23,13 @@ sudo chmod 777 /mnt
 mkdir ${HOME}/apps
 mkdir ${HOME}/.cfg
 
-echo -e "\nsource \${HOME}/.cfg/*cfg" | tee -a ${HOME}/.bashrc
+cat << _EOF_ >> ${HOME}/.bashrc
+for f in \${HOME}/.cfg/*cfg
+do
+    source \${f}
+done
+_EOF_
+
 
 echo -e "\n# Install base"
 
@@ -37,8 +43,8 @@ sudo apt -y install curlftpfs sshfs nfs-common
 sudo apt -y install swaks
 sudo apt -y install htop nmon
 sudo apt -y install duplicity
-sudo apt -y install chrome-gnome-shell
-sudo apt -y install chromium-browser firefox
+sudo apt -y install chrome-gnome-shell gnome-tweaks
+sudo apt -y install chromium-browser firefox epiphany-browser
 sudo apt -y install ca-certificates apt-transport-https
 sudo apt -y install pkg-config software-properties-common 
 sudo apt -y install build-essential git
@@ -57,7 +63,8 @@ spause
 # sudo apt -y install wireshark ;
 # sudo apt -y install openssh-server ;
 sudo apt -y install nmap zenmap ;
-sudo apt -y install freerdp2-x11 ;
+# sudo apt -y install freerdp2-x11 ;
+sudo apt -y install remmina ;
 sudo apt -y install minicom ;
 sudo usermod -a -G tty ${USER}
 sudo usermod -a -G dialout ${USER}
@@ -90,7 +97,8 @@ spause
 
 sudo snap install gimp
 sudo apt -y install graphviz gnuplot-nox
-sudo apt -y install gnome-mpv
+#sudo apt -y install gnome-mpv
+sudo apt -y install totem
 
 echo -e "\n# Install programming languages"
 
@@ -109,22 +117,25 @@ sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
 
-echo -e "export WORKON_HOME=\${HOME}/.virtualenvs" | tee ${HOME}/.cfg/20_python.cfg
-echo -e "# python virtual envs" | tee -a ${HOME}/.cfg/20_python.cfg
-echo -e ". /usr/local/bin/virtualenvwrapper.sh" | tee -a ${HOME}/.cfg/20_python.cfg
-
+cat << _EOF_ > ${HOME}/.cfg/20_python.cfg
+export WORKON_HOME=\${HOME}/.virtualenvs
+# python virtual envs
+. /usr/local/bin/virtualenvwrapper.sh
+_EOF_
 
 sudo apt install -y direnv
 
 echo -e "layout_virtualenv() {\n\tlocal venv_path=\"\${1}\"\n\tsource \${venv_path}/bin/activate\n}\nlayout_virtualenvwrapper() {\n\tlocal venv_path=\"\${WORKON_HOME}/\${1}\"\n\tlayout_virtualenv \${venv_path}\n}" | tee ${HOME}/.direnvrc
 
-echo -e "eval \"\$(direnv hook bash)\"" | tee ${HOME}/.cfg/99_direnv.cfg
+cat << _EOF_ > ${HOME}/.cfg/99_direnv.cfg
+eval "\$(direnv hook bash)"
+_EOF_
 
 echo -e "\n## java"
 
-spause
+#spause
 
-sudo apt -y install openjdk-8-jdk openjfx ;
+#sudo apt -y install openjdk-8-jdk openjfx ;
 
 echo -e "\n## nodejs"
 
@@ -135,8 +146,12 @@ curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt install -y nodejs
 
 echo -e "prefix=\${HOME}/.npm-packages" | tee ${HOME}/.npmrc
-echo -e "\nexport NPM_PACKAGES=\"\${HOME}/.npm-packages\"" | tee ${HOME}/.cfg/20_nodejs.cfg
-echo -e "PATH=\"\${NPM_PACKAGES}/bin:\${PATH}\"" | tee -a ${HOME}/.cfg/20_nodejs.cfg
+
+cat << _EOF_ > ${HOME}/.cfg/20_nodejs.cfg
+export NPM_PACKAGES="\${HOME}/.npm-packages"
+PATH="\${NPM_PACKAGES}/bin:\${PATH}"
+export MANPATH="\$NPM_PACKAGES/share/man:\${MANPATH}"
+_EOF_
 
 echo -e "\n## go"
 
@@ -160,6 +175,10 @@ curl https://sh.rustup.rs -sSf | sh
 
 echo -e "\n# Install database support"
 
+spause
+
+sudo snap install squirrelsql
+
 echo -e "\n## sqlite"
 
 spause
@@ -176,7 +195,7 @@ echo -e "\n## freetds"
 
 spause
 
-sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds 
+sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds libjtds-java
 
 echo -e "\n## mariadb"
 
@@ -214,9 +233,12 @@ echo -e "\n# Install docker-compose"
 
 spause
 
-pip install docker-compose
+sudo wget "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -O /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 
-echo -e "\n# Install office"
+echo -e "\n# Install desktop apps"
+
+sudo apt -y install gnome-documents gnome-todo rhythmbox cheese shotwell simple-scan sudoku
 
 echo -e "\n## email client"
 
@@ -262,11 +284,7 @@ echo -e "\n# vscode"
 
 spause
 
-wget -O ${HOME}/code_amd64.deb https://go.microsoft.com/fwlink/?LinkID=760868
-sudo dpkg -i ${HOME}/code_amd64.deb
-sudo apt -y install --fix-missing --fix-broken
-update
-rm ${HOME}/code_amd64.deb
+sudo snap install vscode
 
 spause
 
