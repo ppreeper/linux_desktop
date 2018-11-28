@@ -83,6 +83,7 @@ sudo apt -y install vorbis-tools ;
 sudo apt -y install vpx-tools ;
 sudo apt -y install flac ;
 sudo apt -y install cuetools shntool ;
+sudo apt -y install sox ;
 sudo apt -y install libdvdread4 ;
 sudo apt -y install dvdbackup ;
 # sudo apt -y install libdvdcss2 ;
