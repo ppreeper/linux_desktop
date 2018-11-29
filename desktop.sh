@@ -302,7 +302,7 @@ echo -e "\n# vscode"
 
 spause
 
-sudo snap install vscode
+sudo snap install vscode --classic
 
 spause
 
