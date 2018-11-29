@@ -40,7 +40,7 @@ sudo apt -y install vim-nox
 sudo apt -y install mc fdupes cpio bzip2 lzop pigz unzip unrar fio cabextract tree gddrescue gdebi-core
 sudo apt -y install wget curl aria2
 sudo apt -y install curlftpfs sshfs nfs-common
-sudo apt -y install samba
+sudo apt -y install samba krb5-user cifs-utils
 sudo apt -y install swaks
 sudo apt -y install htop nmon
 sudo apt -y install duplicity
