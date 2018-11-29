@@ -234,11 +234,11 @@ sudo apt -y purge docker docker-engine docker.io
 
 #update
 
+sudo snap install docker 
+
 #sudo apt -y install docker-ce
 #sudo usermod -a -G docker ${USER}
-#sudo chmod a+rw /var/run/docker.sock
-
-sudo snap install docker 
+sudo chmod a+rw /var/run/docker.sock
 
 echo -e "\n# Install docker-compose"
 
