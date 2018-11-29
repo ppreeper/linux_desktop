@@ -56,6 +56,8 @@ spause
 
 git clone https://github.com/ppreeper/bin.git ${HOME}/bin
 
+cp ${HOME}/bin/vimrc ${HOME}/.vimrc
+
 echo -e "\n# Install utils"
 
 spause
@@ -113,8 +115,8 @@ sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
 
 spause
 
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2
 
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
@@ -127,7 +129,16 @@ _EOF_
 
 sudo apt install -y direnv
 
-echo -e "layout_virtualenv() {\n\tlocal venv_path=\"\${1}\"\n\tsource \${venv_path}/bin/activate\n}\nlayout_virtualenvwrapper() {\n\tlocal venv_path=\"\${WORKON_HOME}/\${1}\"\n\tlayout_virtualenv \${venv_path}\n}" | tee ${HOME}/.direnvrc
+cat << _EOF_ > ${HOME}/.direnvrc
+layout_virtualenv() {
+    local venv_path="\${1}"
+    source \${venv_path}/bin/activate
+}
+layout_virtualenvwrapper() {
+    local venv_path="\${WORKON_HOME}/\${1}"
+    layout_virtualenv \${venv_path}
+}
+_EOF_
 
 cat << _EOF_ > ${HOME}/.cfg/99_direnv.cfg
 eval "\$(direnv hook bash)"
