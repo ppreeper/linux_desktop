@@ -240,16 +240,16 @@ sudo apt -y purge docker docker-engine docker.io
 
 sudo snap install docker 
 
-spause
-
-sudo apt -y install vagrant
-
 echo -e "\n# Install docker-compose"
 
 spause
 
 sudo wget "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -O /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
+
+echo -e "\n# Install virtualization"
+
+sudo apt -y install qemu-kvm virtualbox virt-viewer vagrant 
 
 echo -e "\n# Install desktop apps"
 
