@@ -276,8 +276,8 @@ sudo apt -y install posterazor
 sudo apt -y install cmark
 sudo apt -y install asciidoctor
 
-curl -o wkhtmltox_0.12.5-1.stretch_amd64.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
-sudo gdebi -n wkhtmltox_0.12.5-1.stretch_amd64.deb
+curl -o wkhtmltox_0.12.5-1.stretch_amd64.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+sudo gdebi -n wkhtmltox_0.12.5-1.bionic_amd64.deb
 
 echo -e "\n# Install cad"
 
