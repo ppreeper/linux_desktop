@@ -37,9 +37,10 @@ spause
 
 sudo apt -y install man-db
 sudo apt -y install vim-nox
-sudo apt -y install mc fdupes cpio bzip2 lzop pigz unzip unrar fio cabextract tree gddrescue
+sudo apt -y install mc fdupes cpio bzip2 lzop pigz unzip unrar fio cabextract tree gddrescue gdebi-core
 sudo apt -y install wget curl aria2
 sudo apt -y install curlftpfs sshfs nfs-common
+sudo apt -y install samba
 sudo apt -y install swaks
 sudo apt -y install htop nmon
 sudo apt -y install duplicity
@@ -217,18 +218,20 @@ spause
 
 sudo apt -y purge docker docker-engine docker.io
 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
 
-update
+#update
 
-sudo apt -y install docker-ce
-sudo usermod -a -G docker ${USER}
-sudo chmod a+rw /var/run/docker.sock
+#sudo apt -y install docker-ce
+#sudo usermod -a -G docker ${USER}
+#sudo chmod a+rw /var/run/docker.sock
+
+sudo snap install docker 
 
 spause
 
-sudo docker run hello-world
+sudo apt -y install vagrant
 
 echo -e "\n# Install docker-compose"
 
@@ -261,6 +264,9 @@ sudo apt -y install pdfshuffler
 sudo apt -y install posterazor
 sudo apt -y install cmark
 sudo apt -y install asciidoctor
+
+curl -o wkhtmltox_0.12.5-1.stretch_amd64.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
+sudo gdebi -n wkhtmltox_0.12.5-1.stretch_amd64.deb
 
 echo -e "\n# Install cad"
 
