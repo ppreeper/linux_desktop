@@ -133,5 +133,5 @@ echo -e "\n# Install wine"
 
 spause
 
-sudo apt install -y wine
+sudo apt install -y wine-stable
 
