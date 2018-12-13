@@ -235,7 +235,7 @@ echo -e "\n## mongodb"
 
 spause
 
-sudo apt -y install mongodb-clients mongodb-tools
+sudo apt -y install mongodb-clients mongo-tools
 sudo snap install robo3t-snap
 
 echo -e "\n# Install docker"
