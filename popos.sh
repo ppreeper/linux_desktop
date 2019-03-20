@@ -15,6 +15,10 @@ spause
 sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
 sudo sed -e 's/enabled=*$/enabled=0/' -i /etc/default/apport
 
+sudo rm /etc/resolv.conf
+sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
+
+
 echo -e "\n# Make common dirs"
 
 spause
