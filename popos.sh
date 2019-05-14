@@ -1,7 +1,7 @@
 #!/bin/bash
 
 function spause {
-    read -n1 -r -p "Press any key to continue..." key
+    read -n 1 -r -p "Press any key to continue..." key
 }
 
 function update {
@@ -15,16 +15,12 @@ spause
 sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
 sudo sed -e 's/enabled=*$/enabled=0/' -i /etc/default/apport
 
-sudo rm /etc/resolv.conf
-sudo ln -sf /run/systemd/resolve/resolv.conf /etc/resolv.conf
-
-
 echo -e "\n# Make common dirs"
 
 spause
 
 sudo chmod 777 /mnt
-mkdir ${HOME}/apps
+mkdir ${HOME}/mnt
 mkdir ${HOME}/.cfg
 
 cat << _EOF_ >> ${HOME}/.bashrc
@@ -49,7 +45,6 @@ sudo apt -y install fio ;
 sudo apt -y install cabextract ;
 sudo apt -y install tree ;
 sudo apt -y install gddrescue ;
-sudo apt -y install gdebi-core ;
 sudo apt -y install aria2 ;
 sudo apt -y install curlftpfs ;
 sudo apt -y install sshfs ;
@@ -82,11 +77,7 @@ echo -e "\n# Install utils"
 
 spause
 
-# echo wireshark-common wireshark-common/install-setuid select true | sudo debconf-set-selections
-# sudo apt -y install wireshark ;
-# sudo apt -y install openssh-server ;
 sudo apt -y install nmap zenmap ;
-# sudo apt -y install freerdp2-x11 ;
 sudo apt -y install remmina ;
 sudo apt -y install minicom ;
 sudo usermod -a -G tty ${USER}
@@ -96,7 +87,7 @@ echo -e "\n# Install codecs"
 
 spause
 
-sudo apt -y install libavcodec57;
+sudo apt -y install libavcodec58;
 sudo apt -y install oggz-tools ;
 sudo apt -y install ogmtools ;
 sudo apt -y install mkvtoolnix ;
@@ -109,7 +100,7 @@ sudo apt -y install sox ;
 sudo apt -y install libdvdread4 ;
 sudo apt -y install dvdbackup ;
 # sudo apt -y install libdvdcss2 ;
-sudo apt -y install gstreamer1.0-fluendo-mp3 gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
+sudo apt -y install gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
 
 sudo apt -y install -f
 
@@ -119,7 +110,7 @@ spause
 
 #sudo snap install gimp
 #sudo apt -y install graphviz gnuplot-nox
-#sudo apt -y install gnome-mpv
+sudo apt -y install gnome-mpv
 #sudo apt -y install totem
 
 echo -e "\n# Install programming languages"
@@ -133,8 +124,8 @@ sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
 
 spause
 
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2
+#sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
+#sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2
 
 sudo -H pip install virtualenv
 sudo -H pip install virtualenvwrapper
@@ -173,7 +164,7 @@ echo -e "\n## nodejs"
 spause
 
 mkdir ${HOME}/.npm-packages
-curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
+curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
 sudo apt install -y nodejs
 
 echo -e "prefix=\${HOME}/.npm-packages" | tee ${HOME}/.npmrc
@@ -184,12 +175,17 @@ PATH="\${NPM_PACKAGES}/bin:\${PATH}"
 export MANPATH="\$NPM_PACKAGES/share/man:\${MANPATH}"
 _EOF_
 
+# yarn
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+apt update
+sudo apt install yarn
+
 echo -e "\n## go"
 
 spause
 
-sudo add-apt-repository -y ppa:longsleep/golang-backports
-sudo apt install -y golang-go
+${HOME}/bin/goup
 
 echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee ${HOME}/.cfg/20_go.cfg
 
@@ -197,7 +193,7 @@ echo -e "\n## css scss"
 
 spause
 
-sudo apt install -y sassc
+yarn global install sass
 
 echo -e "\n## rust"
 
@@ -206,10 +202,6 @@ spause
 curl https://sh.rustup.rs -sSf | sh
 
 echo -e "\n# Install database support"
-
-spause
-
-sudo snap install squirrelsql
 
 echo -e "\n## sqlite"
 
@@ -235,30 +227,16 @@ spause
 
 sudo apt -y install mariadb-client libmariadbd-dev libdbd-mysql
 
-echo -e "\n## mongodb"
-
-spause
-
-sudo apt -y install mongodb-clients mongo-tools
-sudo snap install robo3t-snap
-
 echo -e "\n# Install docker"
 
 spause
 
-#sudo apt -y purge docker docker-engine docker.io
 sudo apt -y install docker.io
 
-#curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-#sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+apt update
 
-#update
-
-#sudo snap install docker 
-
-#sudo apt -y install docker-ce
 sudo usermod -a -G docker ${USER}
-#sudo chmod a+rw /var/run/docker.sock
+sudo chmod a+rw /var/run/docker.sock
 
 echo -e "\n# Install docker-compose"
 
@@ -273,7 +251,7 @@ sudo apt -y install qemu-kvm virtualbox virt-viewer vagrant
 
 echo -e "\n# Install desktop apps"
 
-sudo apt -y install gnome-documents gnome-todo rhythmbox cheese shotwell simple-scan sudoku
+sudo apt -y install gnome-documents gnome-todo rhythmbox cheese simple-scan sudoku
 
 echo -e "\n## email client"
 
@@ -296,8 +274,8 @@ sudo apt -y install posterazor
 sudo apt -y install cmark
 sudo apt -y install asciidoctor
 
-curl -o wkhtmltox_0.12.5-1.stretch_amd64.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
-sudo gdebi -n wkhtmltox_0.12.5-1.bionic_amd64.deb
+curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
+sudo dpkg --force-depends -i wkhtmltox.deb
 
 echo -e "\n# Install cad"
 
@@ -322,8 +300,7 @@ echo -e "\n# vscode"
 
 spause
 
-#sudo snap install vscode --classic
-sudo apt -y install code
+sudo snap install vscode --classic
 
 spause
 
