@@ -15,6 +15,16 @@ spause
 sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
 sudo sed -e 's/enabled=*$/enabled=0/' -i /etc/default/apport
 
+cat << _EOF_ | sudo tee -a /etc/sysctl.conf
+fs.inotify.max_queued_events = 1048576
+fs.inotify.max_user_instances = 1048576
+fs.inotify.max_user_watches = 1048576
+vm.max_map_count=262144
+net.core.default_qdisc=fq
+net.ipv4.tcp_congestion_control=bbr
+vm.swappiness=10
+_EOF_
+
 echo -e "\n# Make common dirs"
 
 spause
