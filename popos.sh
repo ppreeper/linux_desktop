@@ -15,7 +15,7 @@ spause
 sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
 sudo sed -e 's/enabled=*$/enabled=0/' -i /etc/default/apport
 
-cat << _EOF_ | sudo tee -a /etc/sysctl.conf
+cat << _EOF_ | sudo tee /etc/sysctl.d/20-custom.conf
 fs.inotify.max_queued_events = 1048576
 fs.inotify.max_user_instances = 1048576
 fs.inotify.max_user_watches = 1048576
@@ -284,8 +284,10 @@ sudo apt -y install posterazor
 sudo apt -y install cmark
 sudo apt -y install asciidoctor
 
+sudo apt install gdebi-core
 curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
-sudo dpkg --force-depends -i wkhtmltox.deb
+sudo gdebi -n wkhtmltox.deb
+rm wkhtmltox.deb
 
 echo -e "\n# Install cad"
 
