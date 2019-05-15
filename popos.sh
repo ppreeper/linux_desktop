@@ -130,7 +130,7 @@ echo -e "\n## python"
 spause
 
 mkdir -p ${HOME}/.virtualenvs
-sudo apt install -y python-pip python3-pip python-dev python3-dev pypy
+sudo apt install -y python-pip python3-pip python-dev python3-dev pypy pypy3
 
 spause
 
