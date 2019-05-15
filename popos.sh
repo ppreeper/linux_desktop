@@ -26,7 +26,7 @@ sudo sysctl --system
 cat << _EOF_ | sudo tee /usr/local/bin/update
 sudo bash -c "apt update; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh"
 _EOF_
-chmod +x /usr/local/bin/update
+sudo chmod +x /usr/local/bin/update
 update
 
 echo -e "\n# Make common dirs"
@@ -90,7 +90,7 @@ cp ${HOME}/bin/vimrc ${HOME}/.vimrc
 
 # kerberos defaults
 sudo cp /etc/krb5.conf /etc/krb5.conf.orig
-sudo cp ${HOME}/krb5.conf /etc/krb5.conf
+sudo cp ${HOME}/bin/krb5.conf /etc/krb5.conf
 
 echo -e "\n#Nextcloud client repo"
 
@@ -309,7 +309,6 @@ echo -e "\n# Install cad"
 spause
 
 sudo apt -y install librecad ;
-sudo apt -y install freecad ;
 
 echo -e "\n# Install wine"
 
@@ -337,31 +336,32 @@ sudo snap install code --classic
 
 spause
 
-code --install-extension aaron-bond.better-comments
-code --install-extension akmittal.hugofy
-code --install-extension bibhasdn.django-snippets
-code --install-extension ckolkman.vscode-postgres
-code --install-extension DavidAnson.vscode-markdownlint
-code --install-extension dbaeumer.jshint
-code --install-extension dbaeumer.vscode-eslint
-code --install-extension ecmel.vscode-html-css
-code --install-extension eg2.tslint
-code --install-extension eriklynd.json-tools
-code --install-extension esbenp.prettier-vscode
-code --install-extension formulahendry.vscode-mysql
-code --install-extension GrapeCity.gc-excelviewer
-code --install-extension gruntfuggly.todo-tree
-code --install-extension HookyQR.beautify
-code --install-extension joaompinto.asciidoctor-vscode
-code --install-extension mdickin.markdown-shortcuts
-code --install-extension ms-mssql.mssql
-code --install-extension ms-python.python
-code --install-extension ms-vscode.Go
-code --install-extension octref.vetur
-code --install-extension PeterJausovec.vscode-docker
-code --install-extension redhat.vscode-yaml
-code --install-extension robinbentley.sass-indented
-code --install-extension saviorisdead.RustyCode
-code --install-extension shd101wyy.markdown-preview-enhanced
-code --install-extension yzhang.markdown-all-in-one
-code --install-extension Zignd.html-css-class-completion
+/snap/bin/code --install-extension aaron-bond.better-comments
+/snap/bin/code --install-extension akmittal.hugofy
+/snap/bin/code --install-extension bibhasdn.django-snippets
+/snap/bin/code --install-extension ckolkman.vscode-postgres
+/snap/bin/code --install-extension DavidAnson.vscode-markdownlint
+/snap/bin/code --install-extension dbaeumer.jshint
+/snap/bin/code --install-extension dbaeumer.vscode-eslint
+/snap/bin/code --install-extension ecmel.vscode-html-css
+/snap/bin/code --install-extension eg2.tslint
+/snap/bin/code --install-extension eriklynd.json-tools
+/snap/bin/code --install-extension esbenp.prettier-vscode
+/snap/bin/code --install-extension formulahendry.vscode-mysql
+/snap/bin/code --install-extension GrapeCity.gc-excelviewer
+/snap/bin/code --install-extension gruntfuggly.todo-tree
+/snap/bin/code --install-extension HookyQR.beautify
+/snap/bin/code --install-extension joaompinto.asciidoctor-vscode
+/snap/bin/code --install-extension mdickin.markdown-shortcuts
+/snap/bin/code --install-extension ms-mssql.mssql
+/snap/bin/code --install-extension ms-python.python
+/snap/bin/code --install-extension ms-vscode.Go
+/snap/bin/code --install-extension octref.vetur
+/snap/bin/code --install-extension PeterJausovec.vscode-docker
+/snap/bin/code --install-extension redhat.vscode-yaml
+/snap/bin/code --install-extension robinbentley.sass-indented
+/snap/bin/code --install-extension saviorisdead.RustyCode
+/snap/bin/code --install-extension shd101wyy.markdown-preview-enhanced
+/snap/bin/code --install-extension yzhang.markdown-all-in-one
+/snap/bin/code --install-extension Zignd.html-css-class-completion
+
