@@ -4,10 +4,6 @@ function spause {
     read -n 1 -r -p "Press any key to continue..." key
 }
 
-function update {
-    sudo bash -c "apt update; apt -y dist-upgrade; apt -y autoremove; apt -y autoclean"
-}
-
 echo -e "\n# Adjust NSSwitch"
 
 spause
@@ -25,11 +21,20 @@ net.ipv4.tcp_congestion_control=bbr
 vm.swappiness=10
 _EOF_
 
+sudo sysctl --system
+
+cat << _EOF_ | sudo tee /usr/local/bin/update
+sudo bash -c "apt update; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh"
+_EOF_
+chmod +x /usr/local/bin/update
+update
+
 echo -e "\n# Make common dirs"
 
 spause
 
 sudo chmod 777 /mnt
+mkdir ${HOME}/app
 mkdir ${HOME}/mnt
 mkdir ${HOME}/.cfg
 
@@ -83,6 +88,10 @@ git clone https://github.com/ppreeper/bin.git ${HOME}/bin
 
 cp ${HOME}/bin/vimrc ${HOME}/.vimrc
 
+# kerberos defaults
+sudo cp /etc/krb5.conf /etc/krb5.conf.orig
+sudo cp ${HOME}/krb5.conf /etc/krb5.conf
+
 echo -e "\n# Install utils"
 
 spause
@@ -92,6 +101,7 @@ sudo apt -y install remmina ;
 sudo apt -y install minicom ;
 sudo usermod -a -G tty ${USER}
 sudo usermod -a -G dialout ${USER}
+cp ${HOME}/bin/minirc.dfl ${HOME}/.minirc.dfl
 
 echo -e "\n# Install codecs"
 
@@ -118,10 +128,8 @@ echo -e "\n# Install media"
 
 spause
 
-#sudo snap install gimp
-#sudo apt -y install graphviz gnuplot-nox
 sudo apt -y install gnome-mpv
-#sudo apt -y install totem
+sudo snap install electronplayer
 
 echo -e "\n# Install programming languages"
 
@@ -175,7 +183,7 @@ spause
 
 mkdir ${HOME}/.npm-packages
 curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt install -y nodejs
+sudo apt -y install nodejs
 
 echo -e "prefix=\${HOME}/.npm-packages" | tee ${HOME}/.npmrc
 
@@ -189,7 +197,7 @@ _EOF_
 curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
 apt update
-sudo apt install yarn -y
+sudo apt -y install yarn
 
 echo -e "\n## go"
 
@@ -203,7 +211,7 @@ echo -e "\n## css scss"
 
 spause
 
-yarn global install sass
+yarn global add sass
 
 echo -e "\n## rust"
 
@@ -229,7 +237,7 @@ echo -e "\n## freetds"
 
 spause
 
-sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds libjtds-java
+sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds
 
 echo -e "\n## mariadb"
 
@@ -288,6 +296,7 @@ sudo apt install gdebi-core
 curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
 sudo gdebi -n wkhtmltox.deb
 rm wkhtmltox.deb
+sudo apt -y install -f
 
 echo -e "\n# Install cad"
 
@@ -300,7 +309,7 @@ echo -e "\n# Install wine"
 
 spause
 
-sudo apt install -y wine-stable
+sudo apt -y install wine-stable ;
 
 echo -e "\n# Snaps"
 
@@ -308,11 +317,17 @@ spause
 
 sudo snap install hugo
 
+echo -e "\n# eclipse"
+
+spause
+
+sudo snap install eclipse --classic
+
 echo -e "\n# vscode"
 
 spause
 
-sudo snap install vscode --classic
+sudo snap install code --classic
 
 spause
 
