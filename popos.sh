@@ -92,6 +92,12 @@ cp ${HOME}/bin/vimrc ${HOME}/.vimrc
 sudo cp /etc/krb5.conf /etc/krb5.conf.orig
 sudo cp ${HOME}/krb5.conf /etc/krb5.conf
 
+echo -e "\n#Nextcloud client repo"
+
+sudo add-apt-repository ppa:nextcloud-devs/client -y
+update
+sudo apt -y install nextcloud-client
+
 echo -e "\n# Install utils"
 
 spause
