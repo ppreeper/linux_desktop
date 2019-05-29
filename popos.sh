@@ -57,6 +57,8 @@ sudo apt -y install lzop ;
 sudo apt -y install pigz ;
 sudo apt -y install unrar ;
 sudo apt -y install fio ;
+sudo apt -y install sysbench ;
+sudo apt -y install siege ;
 sudo apt -y install cabextract ;
 sudo apt -y install tree ;
 sudo apt -y install gddrescue ;
