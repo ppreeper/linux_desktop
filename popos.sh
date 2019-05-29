@@ -50,37 +50,32 @@ echo -e "\n# Install base"
 
 spause
 
+# application installation helpers
+sudo apt -y install apt-transport-https pkg-config snapd ;
+# downloaders
+sudo apt -y install curl wget aria2 ;
+# file utils
+sudo apt -y install mc fdupes tree gddrescue ;
+# editor
 sudo apt -y install vim-nox ;
-sudo apt -y install mc ;
-sudo apt -y install fdupes ;
-sudo apt -y install lzop ;
-sudo apt -y install pigz ;
-sudo apt -y install unrar ;
-sudo apt -y install fio ;
-sudo apt -y install sysbench ;
-sudo apt -y install siege ;
-sudo apt -y install cabextract ;
-sudo apt -y install tree ;
-sudo apt -y install gddrescue ;
-sudo apt -y install aria2 ;
-sudo apt -y install curlftpfs ;
-sudo apt -y install sshfs ;
-sudo apt -y install nfs-common ;
-sudo apt -y install samba ;
-sudo apt -y install krb5-user ;
-sudo apt -y install cifs-utils ;
+# compression
+sudo apt -y install lzop pigz unrar cabextract ;
+# benchmarking
+sudo apt -y install fio sysbench siege ;
 sudo apt -y install swaks ;
-sudo apt -y install htop ;
-sudo apt -y install nmon ;
+# remote file systems
+sudo apt -y install curlftpfs sshfs nfs-common samba cifs-utils krb5-user ;
+# monitoring
+sudo apt -y install htop nmon ;
+# backup
 sudo apt -y install duplicity ;
+# desktop utils
 sudo apt -y install gnome-tweaks ;
-sudo apt -y install chromium-browser
+# web browsers
+sudo apt -y install chromium-browser chromium-codecs-ffmpeg-extra ;
 sudo apt -y install epiphany-browser ;
+# basic codecs
 sudo apt -y install ffmpeg ;
-sudo apt -y install chromium-codecs-ffmpeg-extra ;
-sudo apt -y install apt-transport-https ;
-sudo apt -y install pkg-config ;
-sudo apt -y install snapd ;
 
 echo -e "\n# Clone bin"
 
@@ -115,18 +110,14 @@ echo -e "\n# Install codecs"
 
 spause
 
-sudo apt -y install libavcodec58;
-sudo apt -y install oggz-tools ;
-sudo apt -y install ogmtools ;
+# xiph codecs
+sudo apt -y install oggz-tools ogmtools opus-tools vorbis-tools flac;
 sudo apt -y install mkvtoolnix ;
-sudo apt -y install opus-tools ;
-sudo apt -y install vorbis-tools ;
 sudo apt -y install vpx-tools ;
-sudo apt -y install flac ;
 sudo apt -y install cuetools shntool ;
 sudo apt -y install sox ;
-sudo apt -y install libdvdread4 ;
-sudo apt -y install dvdbackup ;
+sudo apt -y install libavcodec58;
+sudo apt -y install libdvdread4 dvdbackup ;
 # sudo apt -y install libdvdcss2 ;
 sudo apt -y install gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
 
