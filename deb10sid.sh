@@ -265,15 +265,14 @@ sudo apt -y install docker.io
 
 apt update
 
-sudo usermod -a -G docker ${USER}
+sudo usermod -aG docker ${USER}
 sudo chmod a+rw /var/run/docker.sock
 
 echo -e "\n# Install docker-compose"
 
 spause
 
-sudo wget "https://github.com/docker/compose/releases/download/1.23.1/docker-compose-$(uname -s)-$(uname -m)" -O /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
+sudo -H pip3 install docker-compose
 
 echo -e "\n# Install virtualization"
 
