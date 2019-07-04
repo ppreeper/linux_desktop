@@ -211,6 +211,11 @@ echo -e "\n## yarn"
 
 sudo apt -y install yarn
 
+echo -e "\n## sass"
+
+yarn global add sass
+yarn global add prettier
+
 echo -e "\n## go"
 
 spause
