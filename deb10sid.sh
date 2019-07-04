@@ -147,13 +147,11 @@ sudo apt -y install python3-pip python3-dev pypy3
 
 spause
 
-#sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 1
-#sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 2
-
-sudo -H pip install virtualenv
-sudo -H pip install virtualenvwrapper
+sudo -H pip3 install virtualenv
+sudo -H pip3 install virtualenvwrapper
 
 cat << _EOF_ > ${HOME}/.cfg/20_python.cfg
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export WORKON_HOME=\${HOME}/.virtualenvs
 # python virtual envs
 . /usr/local/bin/virtualenvwrapper.sh
