@@ -120,17 +120,14 @@ echo -e "\n# Install codecs"
 spause
 
 # xiph codecs
-sudo apt -y install oggz-tools ogmtools opus-tools vorbis-tools flac;
+sudo apt -y install oggz-tools ogmtools opus-tools vorbis-tools flac ;
 sudo apt -y install mkvtoolnix ;
 sudo apt -y install vpx-tools ;
 sudo apt -y install cuetools shntool ;
 sudo apt -y install sox ;
-sudo apt -y install libavcodec58;
+sudo apt -y install libavcodec-extra;
 sudo apt -y install libdvdread4 dvdbackup ;
-# sudo apt -y install libdvdcss2 ;
-sudo apt -y install gstreamer1.0-libav gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
-
-sudo apt -y install -f
+sudo apt -y install gstreamer1.0-libav gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly ;
 
 echo -e "\n# Install media"
 
@@ -141,12 +138,12 @@ sudo snap install electronplayer
 
 echo -e "\n# Install programming languages"
 
-echo -e "\n## python"
+echo -e "\n## python3"
 
 spause
 
 mkdir -p ${HOME}/.virtualenvs
-sudo apt install -y python-pip python3-pip python-dev python3-dev pypy pypy3
+sudo apt -y install python3-pip python3-dev pypy3
 
 spause
 
