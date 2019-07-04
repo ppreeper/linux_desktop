@@ -280,7 +280,7 @@ sudo apt -y install qemu-kvm virtualbox virt-viewer vagrant
 
 echo -e "\n# Install desktop apps"
 
-sudo apt -y install gnome-documents gnome-todo gnome-books rhythmbox cheese simple-scan sudoku
+sudo apt -y install gnome-documents gnome-todo gnome-books rhythmbox cheese simple-scan
 
 echo -e "\n## email client"
 
