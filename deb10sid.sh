@@ -8,8 +8,8 @@ echo -e "\n# Adjust NSSwitch"
 
 spause
 
-# sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
 sudo sed -e 's_ \[NOTFOUND=return\]__g' -i /etc/nsswitch.conf
+sudo sed -e 's_ winbind__g' -i /etc/nsswitch.conf
 sudo sed -e 's_^hosts: .*_& [NOTFOUND=return]_' -i /etc/nsswitch.conf
 sudo sed -e 's_^passwd: .*_& winbind_' -i /etc/nsswitch.conf
 sudo sed -e 's_^group: .*_& winbind_' -i /etc/nsswitch.conf
