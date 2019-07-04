@@ -291,6 +291,10 @@ echo -e "\n# Install desktop apps"
 
 sudo apt -y install gnome-documents gnome-todo gnome-books rhythmbox cheese simple-scan
 
+echo -e "\n# Install network vpn connectors"
+
+sudo apt -y install network-manager-openconnect network-manager-openvpn-gnome network-manager-pptp-gnome network-manager-ssh-gnome network-manager-vpnc-gnome
+
 echo -e "\n## email client"
 
 spause
@@ -311,6 +315,7 @@ sudo apt -y install pdfshuffler
 sudo apt -y install posterazor
 sudo apt -y install cmark
 sudo apt -y install asciidoc
+sudo apt -y install texmaker
 
 curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
 sudo apt -y install ./wkhtmltox.deb
