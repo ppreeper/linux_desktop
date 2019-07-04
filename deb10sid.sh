@@ -28,6 +28,10 @@ _EOF_
 
 sudo sysctl --system
 
+cat << _EOF_ | sudo tee /etc/apt/sources.list
+deb http://deb.debian.org/debian/ sid main contrib non-free
+_EOF_
+
 cat << _EOF_ | sudo tee /usr/local/bin/update
 sudo bash -c "apt update; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh"
 _EOF_
