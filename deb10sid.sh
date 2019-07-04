@@ -38,6 +38,11 @@ _EOF_
 sudo chmod +x /usr/local/bin/update
 update
 
+cat << _EOF_ | sudo tee /root/crontab.root
+5   */3 *   *   *   /usr/local/bin/update > /dev/null
+_EOF_
+sudo crontab -u root /root/crontab.root
+
 echo -e "\n# Make common dirs"
 
 spause
@@ -384,4 +389,3 @@ code --install-extension saviorisdead.RustyCode
 code --install-extension shd101wyy.markdown-preview-enhanced
 code --install-extension yzhang.markdown-all-in-one
 code --install-extension Zignd.html-css-class-completion
-
