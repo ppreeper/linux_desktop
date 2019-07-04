@@ -100,13 +100,9 @@ cp ${HOME}/bin/vimrc ${HOME}/.vimrc
 sudo cp /etc/krb5.conf /etc/krb5.conf.orig
 sudo cp ${HOME}/bin/krb5.conf /etc/krb5.conf
 
-echo -e "\n#Nextcloud client repo"
+echo -e "\n#Nextcloud desktop"
 
-sudo add-apt-repository ppa:nextcloud-devs/client -y
-deb http://ppa.launchpad.net/nextcloud-devs/client/ubuntu YOUR_UBUNTU_VERSION_HERE main 
-deb-src http://ppa.launchpad.net/nextcloud-devs/client/ubuntu YOUR_UBUNTU_VERSION_HERE main 
-update
-sudo apt -y install nextcloud-client
+sudo apt -y install nextcloud-desktop ;
 
 echo -e "\n# Install utils"
 
