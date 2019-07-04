@@ -292,7 +292,7 @@ echo -e "\n## libreoffice"
 
 spause
 
-sudo apt -y install libreoffice libreoffice-math libreoffice-pdfimport libreoffice-report-builder
+sudo apt -y install libreoffice libreoffice-math libreoffice-pdfimport
 
 echo -e "\n# Install deskpub"
 
@@ -301,11 +301,10 @@ spause
 sudo apt -y install pdfshuffler
 sudo apt -y install posterazor
 sudo apt -y install cmark
-sudo apt -y install asciidoctor
+sudo apt -y install asciidoc
 
-sudo apt install gdebi-core
-curl -o wkhtmltox.deb -SL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
-sudo gdebi -n wkhtmltox.deb
+curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.stretch_amd64.deb
+sudo apt -y install ./wkhtmltox.deb
 rm wkhtmltox.deb
 sudo apt -y install -f
 
@@ -313,19 +312,19 @@ echo -e "\n# Install cad"
 
 spause
 
-sudo apt -y install librecad ;
+sudo apt -y install freecad librecad dxf2gcode ;
 
 echo -e "\n# Install wine"
 
 spause
 
-sudo apt -y install wine-stable ;
+sudo apt -y install wine ;
 
-echo -e "\n# Snaps"
+echo -e "\n# Hugo"
 
 spause
 
-sudo snap install hugo
+sudo apt -y install hugo
 
 echo -e "\n# eclipse"
 
@@ -337,36 +336,38 @@ echo -e "\n# vscode"
 
 spause
 
-sudo snap install code --classic
+wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868
+sudo apt -y install ./code.deb
+rm code.deb
 
 spause
 
-/snap/bin/code --install-extension aaron-bond.better-comments
-/snap/bin/code --install-extension akmittal.hugofy
-/snap/bin/code --install-extension bibhasdn.django-snippets
-/snap/bin/code --install-extension ckolkman.vscode-postgres
-/snap/bin/code --install-extension DavidAnson.vscode-markdownlint
-/snap/bin/code --install-extension dbaeumer.jshint
-/snap/bin/code --install-extension dbaeumer.vscode-eslint
-/snap/bin/code --install-extension ecmel.vscode-html-css
-/snap/bin/code --install-extension eg2.tslint
-/snap/bin/code --install-extension eriklynd.json-tools
-/snap/bin/code --install-extension esbenp.prettier-vscode
-/snap/bin/code --install-extension formulahendry.vscode-mysql
-/snap/bin/code --install-extension GrapeCity.gc-excelviewer
-/snap/bin/code --install-extension gruntfuggly.todo-tree
-/snap/bin/code --install-extension HookyQR.beautify
-/snap/bin/code --install-extension joaompinto.asciidoctor-vscode
-/snap/bin/code --install-extension mdickin.markdown-shortcuts
-/snap/bin/code --install-extension ms-mssql.mssql
-/snap/bin/code --install-extension ms-python.python
-/snap/bin/code --install-extension ms-vscode.Go
-/snap/bin/code --install-extension octref.vetur
-/snap/bin/code --install-extension PeterJausovec.vscode-docker
-/snap/bin/code --install-extension redhat.vscode-yaml
-/snap/bin/code --install-extension robinbentley.sass-indented
-/snap/bin/code --install-extension saviorisdead.RustyCode
-/snap/bin/code --install-extension shd101wyy.markdown-preview-enhanced
-/snap/bin/code --install-extension yzhang.markdown-all-in-one
-/snap/bin/code --install-extension Zignd.html-css-class-completion
+code --install-extension aaron-bond.better-comments
+code --install-extension akmittal.hugofy
+code --install-extension bibhasdn.django-snippets
+code --install-extension ckolkman.vscode-postgres
+code --install-extension DavidAnson.vscode-markdownlint
+code --install-extension dbaeumer.jshint
+code --install-extension dbaeumer.vscode-eslint
+code --install-extension ecmel.vscode-html-css
+code --install-extension eg2.tslint
+code --install-extension eriklynd.json-tools
+code --install-extension esbenp.prettier-vscode
+code --install-extension formulahendry.vscode-mysql
+code --install-extension GrapeCity.gc-excelviewer
+code --install-extension gruntfuggly.todo-tree
+code --install-extension HookyQR.beautify
+code --install-extension joaompinto.asciidoctor-vscode
+code --install-extension mdickin.markdown-shortcuts
+code --install-extension ms-mssql.mssql
+code --install-extension ms-python.python
+code --install-extension ms-vscode.Go
+code --install-extension octref.vetur
+code --install-extension PeterJausovec.vscode-docker
+code --install-extension redhat.vscode-yaml
+code --install-extension robinbentley.sass-indented
+code --install-extension saviorisdead.RustyCode
+code --install-extension shd101wyy.markdown-preview-enhanced
+code --install-extension yzhang.markdown-all-in-one
+code --install-extension Zignd.html-css-class-completion
 
