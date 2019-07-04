@@ -333,21 +333,21 @@ echo -e "\n# Hugo"
 
 spause
 
-sudo apt -y install hugo
+sudo apt -y install hugo ;
 
 echo -e "\n# eclipse"
 
 spause
 
-sudo snap install eclipse --classic
+sudo snap install eclipse --classic ;
 
 echo -e "\n# vscode"
 
 spause
 
 wget -O code.deb https://go.microsoft.com/fwlink/?LinkID=760868
-sudo apt -y install ./code.deb
-rm code.deb
+sudo apt -y install ./code.deb ;
+rm code.deb ;
 
 spause
 
