@@ -157,6 +157,8 @@ export WORKON_HOME=\${HOME}/.virtualenvs
 . /usr/local/bin/virtualenvwrapper.sh
 _EOF_
 
+source ${HOME}/.cfg/20_python.cfg
+
 sudo apt install -y direnv
 
 cat << _EOF_ > ${HOME}/.direnvrc
@@ -173,6 +175,8 @@ _EOF_
 cat << _EOF_ > ${HOME}/.cfg/99_direnv.cfg
 eval "\$(direnv hook bash)"
 _EOF_
+
+source ${HOME}/.cfg/99_direnv.cfg
 
 echo -e "\n## java"
 
@@ -194,6 +198,8 @@ PATH="\${NPM_PACKAGES}/bin:\${PATH}"
 export MANPATH="\$NPM_PACKAGES/share/man:\${MANPATH}"
 _EOF_
 
+source ${HOME}/.cfg/20_js.cfg
+
 echo -e "\n## yarn repo"
 
 curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
@@ -211,11 +217,6 @@ echo -e "\n## yarn"
 
 sudo apt -y install yarn
 
-echo -e "\n## sass"
-
-yarn global add sass
-yarn global add prettier
-
 echo -e "\n## go"
 
 spause
@@ -224,11 +225,14 @@ ${HOME}/bin/goup
 
 echo -e "PATH=\"\${HOME}/go/bin:\${PATH}\"" | tee ${HOME}/.cfg/20_go.cfg
 
+source ${HOME}/.cfg/20_go.cfg
+
 echo -e "\n## css scss"
 
 spause
 
 yarn global add sass
+yarn global add prettier
 
 echo -e "\n## rust"
 
