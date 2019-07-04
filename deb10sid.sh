@@ -180,26 +180,35 @@ echo -e "\n## java"
 
 #sudo apt -y install openjdk-8-jdk openjfx ;
 
-echo -e "\n## nodejs"
+echo -e "\n## javascript"
 
 spause
 
 mkdir ${HOME}/.npm-packages
-curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
-sudo apt -y install nodejs
 
 echo -e "prefix=\${HOME}/.npm-packages" | tee ${HOME}/.npmrc
 
-cat << _EOF_ > ${HOME}/.cfg/20_nodejs.cfg
+cat << _EOF_ > ${HOME}/.cfg/20_js.cfg
 export NPM_PACKAGES="\${HOME}/.npm-packages"
 PATH="\${NPM_PACKAGES}/bin:\${PATH}"
 export MANPATH="\$NPM_PACKAGES/share/man:\${MANPATH}"
 _EOF_
 
-# yarn
-curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo -e "\n## yarn repo"
+
+curl -sSL https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-apt update
+
+echo -e "\n## nodejs repo"
+
+curl -sSL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+
+echo -e "\n## nodejs"
+
+sudo apt -y install nodejs
+
+echo -e "\n## yarn"
+
 sudo apt -y install yarn
 
 echo -e "\n## go"
