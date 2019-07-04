@@ -47,12 +47,16 @@ mkdir ${HOME}/app
 mkdir ${HOME}/mnt
 mkdir ${HOME}/.cfg
 
+sed -e 's_^#alias_alias_' -i ${HOME}/.bashrc
+
 cat << _EOF_ >> ${HOME}/.bashrc
 for f in \${HOME}/.cfg/*cfg
 do
     source \${f}
 done
 _EOF_
+
+
 
 
 echo -e "\n# Install base"
