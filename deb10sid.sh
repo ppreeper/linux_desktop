@@ -56,9 +56,6 @@ do
 done
 _EOF_
 
-
-
-
 echo -e "\n# Install base"
 
 spause
@@ -87,9 +84,7 @@ sudo apt -y install duplicity ;
 sudo apt -y install gnome-tweaks ;
 # web browsers
 sudo apt -y purge firefox-esr ;
-sudo apt -y install firefox ;
-sudo apt -y install chromium-browser chromium-codecs-ffmpeg-extra ;
-sudo apt -y install epiphany-browser ;
+sudo apt -y install firefox chromium epiphany-browser ;
 # basic codecs
 sudo apt -y install ffmpeg ;
 
