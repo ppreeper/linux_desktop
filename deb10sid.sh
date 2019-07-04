@@ -61,7 +61,7 @@ echo -e "\n# Install base"
 spause
 
 # application installation helpers
-sudo apt -y install apt-transport-https pkg-config snapd ;
+sudo apt -y install apt-transport-https pkg-config snapd git ;
 # downloaders
 sudo apt -y install curl wget aria2 ;
 # file utils
