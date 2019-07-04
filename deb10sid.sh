@@ -109,7 +109,7 @@ echo -e "\n# Install utils"
 spause
 
 sudo apt -y install nmap zenmap ;
-sudo apt -y install remmina ;
+sudo apt -y install remmina remmina-plugin-nx remmina-plugin-spice ;
 sudo apt -y install minicom ;
 sudo usermod -a -G tty ${USER}
 sudo usermod -a -G dialout ${USER}
