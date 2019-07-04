@@ -243,19 +243,19 @@ echo -e "\n## postgresql"
 
 spause
 
-sudo apt -y install postgresql-client postgresql-server-dev-all libdbd-pgsql
+sudo apt -y install postgresql-client postgresql-server-dev-all
 
 echo -e "\n## freetds"
 
 spause
 
-sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev libdbd-freetds
+sudo apt -y install freetds-bin freetds-dev tdsodbc unixodbc unixodbc-bin unixodbc-dev
 
 echo -e "\n## mariadb"
 
 spause
 
-sudo apt -y install mariadb-client libmariadbd-dev libdbd-mysql
+sudo apt -y install mariadb-client libmariadbd-dev
 
 echo -e "\n# Install docker"
 
