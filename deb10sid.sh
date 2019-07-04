@@ -8,7 +8,12 @@ echo -e "\n# Adjust NSSwitch"
 
 spause
 
-sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
+# sudo sed -e 's/^hosts:.*$/hosts:\t\tfiles dns mdns4_minimal myhostname [NOTFOUND=return]/' -i /etc/nsswitch.conf
+sudo sed -e 's_ [NOTFOUND=return]__' -i /etc/nsswitch.conf
+sudo sed -e 's_^hosts: .*_& [NOTFOUND=return]_' -i /etc/nsswitch.conf
+sudo sed -e 's_^passwd: .*_& winbind_' -i /etc/nsswitch.conf
+sudo sed -e 's_^group: .*_& winbind_' -i /etc/nsswitch.conf
+
 sudo sed -e 's/enabled=*$/enabled=0/' -i /etc/default/apport
 
 cat << _EOF_ | sudo tee /etc/sysctl.d/20-custom.conf
@@ -73,6 +78,8 @@ sudo apt -y install duplicity ;
 # desktop utils
 sudo apt -y install gnome-tweaks ;
 # web browsers
+sudo apt -y purge firefox-esr ;
+sudo apt -y install firefox ;
 sudo apt -y install chromium-browser chromium-codecs-ffmpeg-extra ;
 sudo apt -y install epiphany-browser ;
 # basic codecs
@@ -93,6 +100,8 @@ sudo cp ${HOME}/bin/krb5.conf /etc/krb5.conf
 echo -e "\n#Nextcloud client repo"
 
 sudo add-apt-repository ppa:nextcloud-devs/client -y
+deb http://ppa.launchpad.net/nextcloud-devs/client/ubuntu YOUR_UBUNTU_VERSION_HERE main 
+deb-src http://ppa.launchpad.net/nextcloud-devs/client/ubuntu YOUR_UBUNTU_VERSION_HERE main 
 update
 sudo apt -y install nextcloud-client
 
