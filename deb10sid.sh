@@ -237,7 +237,7 @@ echo -e "\n## sqlite"
 
 spause
 
-sudo apt -y install sqlite3 libdbd-sqlite3
+sudo apt -y install sqlite3
 
 echo -e "\n## postgresql"
 
@@ -255,7 +255,7 @@ echo -e "\n## mariadb"
 
 spause
 
-sudo apt -y install mariadb-client libmariadbd-dev
+sudo apt -y install mariadb-client
 
 echo -e "\n# Install docker"
 
