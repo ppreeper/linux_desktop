@@ -84,7 +84,11 @@ sudo apt -y install curlftpfs sshfs nfs-common samba cifs-utils krb5-user ;
 # monitoring
 sudo apt -y install htop nmon ;
 # backup
-sudo apt -y install duplicity ;
+sudo apt -y install duplicity syncthing;
+sudo cp /lib/systemd/system/syncthing@.service /lib/systemd/system/syncthing@${USER}.service
+sudo systemctl daemon-reload
+sudo systemctl enable syncthing@${USER}.service
+sudo systemctl start syncthing@${USER}.service
 # desktop utils
 sudo apt -y install gnome-tweaks ;
 # web browsers
