@@ -294,7 +294,13 @@ sudo -H pip3 install docker-compose
 
 echo -e "\n# Install virtualization"
 
-sudo apt -y install qemu-kvm virtualbox virt-viewer vagrant 
+sudo apt -y install qemu-kvm virtualbox virt-viewer 
+
+V=$(echo -e https://releases.hashicorp.com/$(wget -q -O - https://releases.hashicorp.com/vagrant/ | grep -e "href=\"/vagrant/" | sed 's/.*href=\"\///' | sed 's/\">.*//' | sort | tail -1)$(wget -q -O - https://releases.hashicorp.com/vagrant/ | grep -e "href=\"/vagrant/" | sed 's/.*href=\"\///' | sed 's/\">.*//' | sort | tail -1| sed 's/\//_/g')$(uname -i).deb)
+mkdir /tmp/vagrant
+wget -q -O /tmp/vagrant/vagrant.deb ${V}
+sudo apt install /tmp/vagrant/vagrant.deb
+rm -rf /tmp/vagrant
 
 echo -e "\n# Install desktop apps"
 
