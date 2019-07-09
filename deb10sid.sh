@@ -70,7 +70,7 @@ sudo apt -y install apt-transport-https pkg-config snapd git ;
 # downloaders
 sudo apt -y install curl wget aria2 ;
 # file utils
-sudo apt -y install mc fdupes tree gddrescue ;
+sudo apt -y install mc fdupes tree gddrescue rename ;
 # editor
 sudo apt -y install vim ;
 # compression
