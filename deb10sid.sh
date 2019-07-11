@@ -33,7 +33,7 @@ deb http://deb.debian.org/debian/ sid main contrib non-free
 _EOF_
 
 cat << _EOF_ | sudo tee /usr/local/bin/update
-sudo bash -c "apt update; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh"
+sudo bash -c "apt update; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; flatpak update"
 _EOF_
 sudo chmod +x /usr/local/bin/update
 update
@@ -66,7 +66,8 @@ echo -e "\n# Install base"
 spause
 
 # application installation helpers
-sudo apt -y install apt-transport-https pkg-config snapd git ;
+sudo apt -y install apt-transport-https pkg-config flatpak gnome-software-plugin-flatpak git ;
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo ;
 # downloaders
 sudo apt -y install curl wget aria2 ;
 # file utils
@@ -143,7 +144,6 @@ echo -e "\n# Install media"
 spause
 
 sudo apt -y install gnome-mpv
-sudo snap install electronplayer
 
 echo -e "\n# Install programming languages"
 
@@ -359,7 +359,7 @@ echo -e "\n# eclipse"
 
 spause
 
-sudo snap install eclipse --classic ;
+sudo flatpak install -y io.dbeaver.DBeaverCommunity ;
 
 echo -e "\n# vscode"
 
