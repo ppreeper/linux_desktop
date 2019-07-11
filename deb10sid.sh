@@ -301,6 +301,8 @@ mkdir /tmp/vagrant
 wget -q -O /tmp/vagrant/vagrant.deb ${V}
 sudo apt install /tmp/vagrant/vagrant.deb
 rm -rf /tmp/vagrant
+vagrant plugin install vagrant-share
+vagrant plugin install vagrant-vbguest
 
 echo -e "\n# Install desktop apps"
 
