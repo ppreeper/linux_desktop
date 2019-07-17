@@ -151,35 +151,17 @@ echo -e "\n## python3"
 
 spause
 
-mkdir -p ${HOME}/.virtualenvs
 sudo apt -y install python3-pip python3-dev pypy3
 
 spause
 
+sudo -H apt install direnv
+sudo -H pip3 install pipenv
 sudo -H pip3 install virtualenv
-sudo -H pip3 install virtualenvwrapper
 
-cat << _EOF_ > ${HOME}/.cfg/20_python.cfg
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export WORKON_HOME=\${HOME}/.virtualenvs
-# python virtual envs
-. /usr/local/bin/virtualenvwrapper.sh
-_EOF_
+echo -e "PATH=\"\${HOME}/.local/bin:\${PATH}\"" | tee ${HOME}/.cfg/20_python.cfg
 
 source ${HOME}/.cfg/20_python.cfg
-
-sudo apt install -y direnv
-
-cat << _EOF_ > ${HOME}/.direnvrc
-layout_virtualenv() {
-    local venv_path="\${1}"
-    source \${venv_path}/bin/activate
-}
-layout_virtualenvwrapper() {
-    local venv_path="\${WORKON_HOME}/\${1}"
-    layout_virtualenv \${venv_path}
-}
-_EOF_
 
 cat << _EOF_ > ${HOME}/.cfg/99_direnv.cfg
 eval "\$(direnv hook bash)"
