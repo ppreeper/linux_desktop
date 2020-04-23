@@ -6,5 +6,5 @@
       apt:
         name:
         - nmap
-        - zenmap
+        - nmapsi4
         state: present
