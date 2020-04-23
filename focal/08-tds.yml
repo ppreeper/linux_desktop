@@ -9,6 +9,5 @@
         - freetds-dev
         - tdsodbc
         - unixodbc
-        - unixodbc-bin
         - unixodbc-dev
         state: present
