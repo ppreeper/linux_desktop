@@ -1,27 +1,27 @@
 ---
 - hosts: all
-  become: yes 
+  become: yes
   tasks:
     - name: codecs and tools
       apt:
         name:
         - ffmpeg
-        - gstreamer1.0-libav 
-        - gstreamer1.0-plugins-good 
-        - gstreamer1.0-plugins-bad 
+        - gstreamer1.0-libav
+        - gstreamer1.0-plugins-good
+        - gstreamer1.0-plugins-bad
         - gstreamer1.0-plugins-ugly
-        - oggz-tools 
-        - ogmtools 
-        - opus-tools 
-        - vorbis-tools 
+        - oggz-tools
+        - ogmtools
+        - opus-tools
+        - vorbis-tools
         - flac
         - mkvtoolnix
-        - vpx-tools 
-        - cuetools 
+        - vpx-tools
+        - cuetools
         - shntool
         - sox
         - libavcodec-extra
-        - libdvdread4 
+        - libdvdread7
         - dvdbackup
         - vobcopy
         state: present
