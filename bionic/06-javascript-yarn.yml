@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: yarn
+      npm:
+        name: yarn@berry
+        global: yes
+        state: present
+

@@ -1,0 +1,17 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: 20_go
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/20_go.cfg"
+        create: yes
+        marker: "# {mark} Go ENV"
+        block: |
+          PATH="${HOME}/go/bin:${PATH}"
+    - name: config set ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/20_go.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+

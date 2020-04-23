@@ -1,0 +1,66 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: zsh installer download
+      get_url:
+        url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+        dest: "{{lookup('env', 'HOME')}}/install.sh"
+        mode: "0775"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: zsh install
+      command: "{{lookup('env', 'HOME')}}/install.sh"
+      register: command_result
+      failed_when: command_result.rc >= 2
+    - name: zsh installer removal
+      file:
+        path: "{{lookup('env', 'HOME')}}/install.sh"
+        state: absent
+    - name: add aliases
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        create: yes
+        marker: "# {mark} aliases"
+        block: |
+          alias ll='ls --color=auto -l'
+          alias la='ls --color=auto -la'
+    - name: chmod mnt
+      file:
+        path: '/mnt'
+        mode: '0777'
+    - name: add app dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/app"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add mnt dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/mnt"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add .cfg dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add .cfg load
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        create: yes
+        marker: "# {mark} cfg loader"
+        block: |
+          for f in ${HOME}/.config/cfg/*cfg
+          do
+            source ${f}
+          done
+    - name: zshrc ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+
+

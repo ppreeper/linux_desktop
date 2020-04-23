@@ -1,0 +1,20 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: docker.io
+      apt:
+        name:
+        - docker.io
+        state: present
+    - name: add existing user "{{lookup('env','USER')}}" to group docker
+      user:
+        name: "{{ lookup('env','USER') }}"
+        groups: docker
+        append: yes
+    - name: docker-compose
+      pip:
+        executable: pip3
+        name:
+          - docker-compose
+        state: present

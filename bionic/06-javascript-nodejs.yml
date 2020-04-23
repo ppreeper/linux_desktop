@@ -1,0 +1,27 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+  vars:
+    NODEJS_VERSION: "12"
+  tasks:
+    - name: install gpg key
+      apt_key:
+        url: "https://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+        state: present
+    - name: nodejs lts repo cleanup
+      file:
+        path: /etc/apt/sources.list.d/nodesource.list
+        state: absent
+    - name: install nodejs lts repo
+      apt_repository:
+        validate_certs: no
+        repo: "deb [arch=amd64] https://deb.nodesource.com/node_{{NODEJS_VERSION}}.x {{ ansible_lsb.codename|lower }} main"
+        state: present
+        filename: nodesource
+        update_cache: yes
+    - name: nodejs
+      apt:
+        name:
+        - nodejs
+        state: latest

@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: desktop app helpers
+      apt:
+        name:
+        - flatpak
+        - gnome-software-plugin-flatpak
+        state: present
+    - name: flatpak repo
+      shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo

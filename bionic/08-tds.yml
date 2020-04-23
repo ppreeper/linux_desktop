@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: tds mssql
+      apt:
+        name:
+        - freetds-bin
+        - freetds-dev
+        - tdsodbc
+        - unixodbc
+        - unixodbc-bin
+        - unixodbc-dev
+        state: present

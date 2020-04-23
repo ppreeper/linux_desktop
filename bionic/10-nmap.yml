@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: nmap
+      apt:
+        name:
+        - nmap
+        - zenmap
+        state: present

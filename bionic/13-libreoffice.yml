@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: add libreoffice repository
+      apt_repository:
+        validate_certs: no
+        repo: ppa:libreoffice/ppa
+        update_cache: yes
+    - name: libreoffice
+      apt:
+        name:
+        - libreoffice
+        state: present

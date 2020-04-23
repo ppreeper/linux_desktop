@@ -1,0 +1,18 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: vim and git
+      apt:
+        name:
+        - git
+        state: latest
+    - name: bin
+      git:
+        repo: "https://github.com/ppreeper/bin"
+        dest: "{{lookup('env', 'HOME')}}/bin"
+        update: yes
+      become: yes
+      become_user: "{{lookup('env', 'USER')}}"
+    - name: go install
+      command: "{{lookup('env', 'HOME')}}/bin/goup"

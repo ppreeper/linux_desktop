@@ -1,0 +1,11 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: CAD CAM Utils
+      apt:
+        name:
+        - freecad
+        - librecad
+        - dxf2gcode
+        state: present

@@ -1,0 +1,66 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: application helpers
+      apt:
+        name:
+        - apt-transport-https
+        - pkg-config
+        - git
+        - upx-ucl
+    - name: downloaders
+      apt:
+        name:
+        - curl
+        - wget
+        - aria2
+    - name: file utils
+      apt:
+        name:
+        - mc
+        - fdupes
+        - tree
+        - gddrescue
+        - rename
+    - name: editor
+      apt:
+        name:
+        - vim
+    - name: compression
+      apt:
+        name:
+        - lzop
+        - pigz
+        - unrar
+        - cabextract
+    - name: benchmarking
+      apt:
+        name:
+        - fio
+        - siege
+    - name: mail utils
+      apt:
+        name:
+        - swaks
+    - name: remote file systems
+      apt:
+        name:
+        - curlftpfs
+        - sshfs
+        - nfs-common
+        - samba
+        - cifs-utils
+        - krb5-user
+    - name: monitoring
+      apt:
+        name:
+        - htop
+        - nmon
+        - tmux
+    - name: backup
+      apt:
+        name:
+        - duplicity
+        - syncthing
+        state: present

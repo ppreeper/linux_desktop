@@ -1,0 +1,62 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: python3
+      apt:
+        name:
+        - python3-pip
+        - python3-dev
+        - direnv
+        - make
+        - build-essential
+        - libssl-dev
+        - zlib1g-dev
+        - libbz2-dev
+        - libreadline-dev
+        - libsqlite3-dev
+        - wget
+        - curl
+        - llvm
+        - libncurses5-dev
+        - libncursesw5-dev
+        - xz-utils
+        - tk-dev
+        - libffi-dev
+        - liblzma-dev
+        - python-openssl
+        state: present
+    - name: pyenv
+      git:
+        repo: "https://github.com/pyenv/pyenv.git"
+        dest: "{{lookup('env', 'HOME')}}/.pyenv"
+      become: yes
+      become_user: "{{lookup('env', 'USER')}}"
+    - name: 20_python
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/20_python.cfg"
+        create: yes
+        marker: "# {mark} Python ENV"
+        block: |
+          PATH="${HOME}/.local/bin:${PATH}"
+    - name: config set ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/20_python.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: 99_pyenv
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/99_pyenv.cfg"
+        create: yes
+        marker: "# {mark} Pyenv"
+        block: |
+          export PYENV_ROOT="$HOME/.pyenv"
+          export PATH="$PYENV_ROOT/bin:$PATH"
+          if command -v pyenv 1>/dev/null 2>&1; then
+            eval "$(pyenv init -)"
+          fi
+    - name: config set ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/99_pyenv.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
