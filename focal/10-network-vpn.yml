@@ -2,11 +2,6 @@
 - hosts: all
   become: yes
   tasks:
-    - name: add wireguard repository
-      apt_repository:
-        validate_certs: no
-        repo: ppa:wireguard/wireguard
-        update_cache: yes
     - name: gnome network vpn connectors
       apt:
         name:
