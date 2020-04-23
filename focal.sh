@@ -1,6 +1,8 @@
 #!/bin/bash
 sudo apt install git ansible -y
 
+rm -rf $HOME/linux_desktop
+
 git clone https://github.com/ppreeper/linux_desktop $HOME/linux_desktop
 
 cd $HOME/linux_desktop
