@@ -64,9 +64,8 @@
         owner: "{{lookup('env', 'USER')}}"
     - name: remove snap-store
       snap:
-        - snap-store
+        name: snap-store
         state: absent
-    - name:
     - name: gnome software store
       apt:
         name:
