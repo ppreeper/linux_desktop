@@ -17,6 +17,7 @@ ansible-playbook -b -K focal/05-network-vpn.yml
 ansible-playbook -b -K focal/05-remotedesk.yml
 ansible-playbook -b -K focal/06-go.yml
 ansible-playbook -b -K focal/06-javascript.yml
+ansible-playbook -b -K focal/06-java.yml
 ansible-playbook -b -K focal/06-python3.yml
 ansible-playbook -b -K focal/06-ruby.yml
 ansible-playbook -b -K focal/06-vscode.yml
