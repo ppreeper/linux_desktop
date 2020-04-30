@@ -24,4 +24,11 @@
         - libdvdread7
         - dvdbackup
         - vobcopy
+        - ubuntu-restricted-extras
+        - ubuntu-restricted-addons
+        state: present
+    - name: media-player
+      apt:
+        name:
+        - gnome-mpv
         state: present

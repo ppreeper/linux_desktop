@@ -75,6 +75,12 @@
         - cifs-utils
         - krb5-user
         state: present
+    - name: network tools
+      apt:
+        name:
+        - nmap
+        - nmapsi4
+        state: present
     - name: monitoring
       apt:
         name:
@@ -82,3 +88,34 @@
         - nmon
         - tmux
         state: present
+    - name: minicom config clear
+      file:
+        path: "{{lookup('env', 'HOME')}}/.minirc.dfl"
+        state: absent
+    - name: minicom config
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.minirc.dfl"
+        create: yes
+        marker: ""
+        block: |
+          pu port             /dev/ttyUSB0
+          pu baudrate         38400
+          pu bits             8
+          pu parity           N
+          pu stopbits         1
+          pu rtscts           No
+    - name: minicom config set ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.minirc.dfl"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: minicom
+      apt:
+        name:
+        - minicom
+        state: present
+    - name: add existing user "{{lookup('env','USER')}}" to tty,dialout
+      user:
+        name: "{{ lookup('env','USER') }}"
+        groups: tty,dialout
+        append: yes

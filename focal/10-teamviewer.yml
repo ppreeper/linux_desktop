@@ -1,8 +1,0 @@
----
-- hosts: all
-  become: yes
-  tasks:
-    - name: teamviewer
-      apt:
-        deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
-        state: present

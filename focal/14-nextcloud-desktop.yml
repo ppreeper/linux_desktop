@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: yes
-  tasks:
-    - name: add nextcloud client
-      flatpak:
-        name: org.nextcloud.Nextcloud
-        state: present
-        remote: gnome

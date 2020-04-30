@@ -8,7 +8,9 @@
         - remmina
         - remmina-plugin-rdp
         - remmina-plugin-vnc
-        - remmina-plugin-nx
         - remmina-plugin-spice
-        - remmina-plugin-secret
+        state: present
+    - name: teamviewer
+      apt:
+        deb: https://download.teamviewer.com/download/linux/teamviewer_amd64.deb
         state: present

@@ -1,6 +1,6 @@
 ---
 - hosts: all
-  become: yes 
+  become: yes
   tasks:
     - name: evolution groupware client
       apt:
@@ -12,4 +12,14 @@
         - evolution-plugin-pstimport
         - evolution-plugin-spamassassin
         - evolution-plugins
+        state: present
+    - name: add libreoffice repository
+      apt_repository:
+        validate_certs: no
+        repo: ppa:libreoffice/ppa
+        update_cache: yes
+    - name: libreoffice
+      apt:
+        name:
+        - libreoffice
         state: present

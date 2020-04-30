@@ -18,3 +18,9 @@
         name:
           - docker-compose
         state: present
+    - name: kvm virtualization
+      apt:
+        name:
+        - qemu-kvm
+        - virt-viewer
+        state: present
