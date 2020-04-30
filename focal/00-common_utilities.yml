@@ -2,6 +2,21 @@
 - hosts: all
   become: yes
   tasks:
+    - name: remove snap-store
+      snap:
+        - snap-store
+        state: absent
+    - name:
+    - name: gnome software store
+      apt:
+        name:
+        - gnome-software
+        - flatpak
+        - gnome-software-plugin-flatpak
+        - gnome-software-plugin-snap
+        state: present
+    - name: flatpak repo
+      shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     - name: application helpers
       apt:
         name:
