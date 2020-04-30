@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: java
+      apt:
+        name:
+        - openjfx
+        - default-jre
+        state: present
