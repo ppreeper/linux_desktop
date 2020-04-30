@@ -33,3 +33,12 @@
         name:
         - sqlite3
         state: present
+    - name: tds mssql
+      apt:
+        name:
+        - freetds-bin
+        - freetds-dev
+        - tdsodbc
+        - unixodbc
+        - unixodbc-dev
+        state: present
