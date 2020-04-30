@@ -7,9 +7,9 @@
         url: https://syncthing.net/release-key.txt
         state: present
     - name: add repository
-      apt_repository: 
+      apt_repository:
         validate_certs: no
-        repo: deb https://apt.syncthing.net/ syncthing stable
+        repo: deb [arch=amd64] https://apt.syncthing.net/ syncthing stable
         state: present
         filename: syncthing
         update_cache: yes
