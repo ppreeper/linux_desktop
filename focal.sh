@@ -7,13 +7,9 @@ git clone https://github.com/ppreeper/linux_desktop $HOME/linux_desktop
 
 cd $HOME/linux_desktop
 
-ansible-playbook -b -K focal/00-bin.yml
-ansible-playbook -b -K focal/00-common_utilities.yml
-ansible-playbook -b -K focal/00-home-dirs.yml
-ansible-playbook -b -K focal/00-nsswitch.yml
+ansible-playbook -b -K focal/00-system.yml
+ansible-playbook -b -K focal/00-userhome.yml
 ansible-playbook -b -K focal/00-vim.yml
-ansible-playbook -b -K focal/01-apport.yml
-ansible-playbook -b -K focal/02-sysctl-custom.yml
 ansible-playbook -b -K focal/03-office.yml
 ansible-playbook -b -K focal/04-chromium.yml
 ansible-playbook -b -K focal/05-filesync.yml

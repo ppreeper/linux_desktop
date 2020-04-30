@@ -2,6 +2,66 @@
 - hosts: all
   become: yes
   tasks:
+    - name: application helpers
+      apt:
+        name:
+        - apt-transport-https
+        - pkg-config
+        - git
+        - upx-ucl
+        state: latest
+    - name: bin
+      git:
+        repo: "https://github.com/ppreeper/bin"
+        dest: "{{lookup('env', 'HOME')}}/bin"
+        update: yes
+      become: yes
+      become_user: "{{lookup('env', 'USER')}}"
+    - name: go install
+      command: "{{lookup('env', 'HOME')}}/bin/goup"
+    - name: chmod mnt
+      file:
+        path: '/mnt'
+        mode: '0777'
+    - name: add bin dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/bin"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add app dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/app"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add mnt dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/mnt"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add .cfg dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: add .cfg load
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        create: yes
+        marker: "# {mark} cfg loader"
+        block: |
+          for f in ${HOME}/.config/cfg/*cfg
+          do
+            source ${f}
+          done
+    - name: zshrc ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
     - name: remove snap-store
       snap:
         - snap-store
@@ -17,14 +77,6 @@
         state: present
     - name: flatpak repo
       shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    - name: application helpers
-      apt:
-        name:
-        - apt-transport-https
-        - pkg-config
-        - git
-        - upx-ucl
-        state: present
     - name: downloaders
       apt:
         name:

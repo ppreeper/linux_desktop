@@ -29,4 +29,28 @@
         path: /etc/nsswitch.conf
         regexp: '^(group.*)$'
         replace: '\1 winbind'
+    - name: apport
+      replace:
+        path: /etc/default/apport
+        regexp: '^enabled=.*$'
+        replace: 'enabled=0'
+    - name: sysctl custom delete
+      file:
+        path: /etc/sysctl.d/20-custom.conf
+        state: absent
+    - name: sysctl custom insert
+      blockinfile:
+        path: /etc/sysctl.d/20-custom.conf
+        create: yes
+        marker: ""
+        block: |
+          fs.inotify.max_queued_events = 1048576
+          fs.inotify.max_user_instances = 1048576
+          fs.inotify.max_user_watches = 1048576
+          vm.max_map_count=262144
+          net.core.default_qdisc=fq
+          net.ipv4.tcp_congestion_control=bbr
+          vm.swappiness=10
+    - name: sysctl load
+      shell: sysctl --system
 
