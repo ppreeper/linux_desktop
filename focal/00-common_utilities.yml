@@ -9,12 +9,14 @@
         - pkg-config
         - git
         - upx-ucl
+        state: present
     - name: downloaders
       apt:
         name:
         - curl
         - wget
         - aria2
+        state: present
     - name: file utils
       apt:
         name:
@@ -23,10 +25,12 @@
         - tree
         - gddrescue
         - rename
+        state: present
     - name: editor
       apt:
         name:
         - vim
+        state: present
     - name: compression
       apt:
         name:
@@ -34,15 +38,18 @@
         - pigz
         - unrar
         - cabextract
+        state: present
     - name: benchmarking
       apt:
         name:
         - fio
         - siege
+        state: present
     - name: mail utils
       apt:
         name:
         - swaks
+        state: present
     - name: remote file systems
       apt:
         name:
@@ -52,15 +59,11 @@
         - samba
         - cifs-utils
         - krb5-user
+        state: present
     - name: monitoring
       apt:
         name:
         - htop
         - nmon
         - tmux
-    - name: backup
-      apt:
-        name:
-        - duplicity
-        - syncthing
         state: present
