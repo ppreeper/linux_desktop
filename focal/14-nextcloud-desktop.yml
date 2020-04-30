@@ -2,13 +2,8 @@
 - hosts: all
   become: yes
   tasks:
-    - name: add nextcloud repository
-      apt_repository:
-        validate_certs: no
-        repo: ppa:nextcloud-devs/client
-        update_cache: yes
-    - name: nextcloud-desktop
-      apt:
-        name:
-        - nextcloud-client
-        state: latest
+    - name: add nextcloud client
+      flatpak:
+        name: org.nextcloud.Nextcloud
+        state: present
+        remote: gnome
