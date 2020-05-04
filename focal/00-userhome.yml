@@ -47,7 +47,17 @@
         state: directory
         group: "{{lookup('env', 'USER')}}"
         owner: "{{lookup('env', 'USER')}}"
-    - name: add .cfg load
+    - name: add .cfg load bash
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.bashrc"
+        create: yes
+        marker: "# {mark} cfg loader"
+        block: |
+          for f in ${HOME}/.config/cfg/*cfg
+          do
+            source ${f}
+          done
+    - name: add .cfg load zsh
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.zshrc"
         create: yes
