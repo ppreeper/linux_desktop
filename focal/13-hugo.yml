@@ -11,6 +11,7 @@
         repo: "https://github.com/gohugoio/hugo.git"
         dest: "{{lookup('env', 'HOME')}}/hugo"
         update: yes
+        version: v0.70.0
       become: yes
       become_user: "{{lookup('env', 'USER')}}"
     - name: hugo install
