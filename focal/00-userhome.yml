@@ -9,6 +9,7 @@
         - pkg-config
         - git
         - upx-ucl
+        - zsh
         state: latest
     - name: bin
       git:
