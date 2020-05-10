@@ -40,9 +40,9 @@
         state: absent
     - name: sysctl custom insert
       blockinfile:
-        path: /etc/sysctl.d/20-custom.conf
+        path: /etc/sysctl.conf
         create: yes
-        marker: ""
+        marker: "# {mark} custom settings"
         block: |
           fs.inotify.max_queued_events = 1048576
           fs.inotify.max_user_instances = 1048576
