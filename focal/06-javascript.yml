@@ -11,7 +11,7 @@
         create: yes
         marker: "# {mark} Javascript ENV"
         block: |
-          export NPM_PACKAGES="${HOME}/.npm-packages"
+          export NPM_PACKAGES="${HOME}/.local/npm-packages"
           PATH="${NPM_PACKAGES}/bin:${PATH}"
           export MANPATH="$NPM_PACKAGES/share/man:${MANPATH}"
     - name: 20_js ownership

@@ -51,11 +51,14 @@
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.config/cfg/alias.cfg"
         create: yes
-        group: "{{lookup('env', 'USER')}}"
-        owner: "{{lookup('env', 'USER')}}"
         marker: "# {mark} alias config"
         block: |
           alias update='sudo bash -c "apt update -y; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh; flatpak update"'
+    - name: alias set ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/alias.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
     - name: add .cfg load bash
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.bashrc"
