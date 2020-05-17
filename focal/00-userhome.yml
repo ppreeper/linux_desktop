@@ -9,7 +9,6 @@
         - pkg-config
         - git
         - upx-ucl
-        - zsh
         state: latest
     - name: bin
       git:
@@ -48,6 +47,15 @@
         state: directory
         group: "{{lookup('env', 'USER')}}"
         owner: "{{lookup('env', 'USER')}}"
+    - name: add alias cfg
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.config/cfg/alias.cfg"
+        create: yes
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+        marker: "# {mark} alias config"
+        block: |
+          alias update='sudo bash -c "apt update -y; apt -y full-upgrade; apt -y autoremove; apt -y autoclean; snap refresh; flatpak update"'
     - name: add .cfg load bash
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.bashrc"
@@ -58,6 +66,28 @@
           do
             source ${f}
           done
+    # zsh
+    - name: zsh
+      apt:
+        name:
+        - zsh
+        - zsh-autosuggestions
+        - zsh-syntax-highlighting
+        - autojump
+        state: latest
+    - name: zsh config directory
+      file:
+        path: "{{lookup('env', 'HOME')}}/.zsh"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: zsh pure theme
+      git:
+        repo: "https://github.com/sindresorhus/pure.git"
+        dest: "{{lookup('env', 'HOME')}}/.zsh/pure"
+        update: yes
+      become: yes
+      become_user: "{{lookup('env', 'USER')}}"
     - name: add .cfg load zsh
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.zshrc"
@@ -73,6 +103,7 @@
         path: "{{lookup('env', 'HOME')}}/.zshrc"
         group: "{{lookup('env', 'USER')}}"
         owner: "{{lookup('env', 'USER')}}"
+    # snap store removal
     - name: remove snap-store
       snap:
         name: snap-store
@@ -85,8 +116,13 @@
         - gnome-software-plugin-flatpak
         - gnome-software-plugin-snap
         state: present
+    # flatpak flathub repo
     - name: flatpak repo
-      shell: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      flatpak_remote:
+        name: flathub
+        state: present
+        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
+        method: user
     - name: downloaders
       apt:
         name:
