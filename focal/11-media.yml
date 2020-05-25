@@ -2,7 +2,19 @@
 - hosts: all
   become: yes
   tasks:
-    - name: codecs and tools
+    - name: image tools (system)
+      apt:
+        name:
+        - jpegoptim
+        - pngquant
+        - gifsicle
+        state: latest
+    - name: image tools (npm)
+      npm:
+        name: svgo
+        global: yes
+        state: latest
+    - name: av codecs and tools
       apt:
         name:
         - ffmpeg
