@@ -91,6 +91,35 @@
         update: yes
       become: yes
       become_user: "{{lookup('env', 'USER')}}"
+    - name: zshrc
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.zshrc"
+        create: yes
+        marker: "# {mark} base cfg"
+        block: |
+          # Enable colors and change prompt:
+          autoload -U colors && colors
+          PS1="%B%{$fg[red]%}[%{$fg[yellow]%}%n%{$fg[green]%}@%{$fg[blue]%}%M %{$fg[magenta]%}%~%{$fg[red]%}]%{$reset_color%}$%b "
+          # Pure Prompt
+          fpath+=$HOME/.zsh/pure
+          autoload -U promptinit; promptinit
+          prompt pure
+          # History in cache directory:
+          HISTSIZE=10000
+          SAVEHIST=10000
+          HISTFILE=~/.cache/zsh/history
+          # Basic auto/tab complete:
+          autoload -U compinit
+          zstyle ':completion:*' menu select
+          zmodload zsh/complist
+          compinit
+          _comp_options+=(globdots)               # Include hidden files.
+          # Custom ZSH Binds
+          bindkey '^ ' autosuggest-accept
+          # Load ; should be last.
+          source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+          source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+          source /usr/share/autojump/autojump.zsh 2>/dev/null
     - name: add .cfg load zsh
       blockinfile:
         path: "{{lookup('env', 'HOME')}}/.zshrc"
