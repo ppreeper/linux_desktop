@@ -36,6 +36,7 @@
         - libdvdread7
         - dvdbackup
         - vobcopy
+        - mediainfo
         - ubuntu-restricted-extras
         - ubuntu-restricted-addons
         state: present
