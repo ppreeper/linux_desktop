@@ -9,6 +9,7 @@ cd $HOME/linux_desktop
 
 ansible-playbook -b -K focal/00-system.yml
 ansible-playbook -b -K focal/00-userhome.yml
+ansible-playbook -b -K focal/00-gnome-shell.yml
 ansible-playbook -b -K focal/00-vim.yml
 ansible-playbook -b -K focal/03-office.yml
 ansible-playbook -b -K focal/04-chromium.yml
