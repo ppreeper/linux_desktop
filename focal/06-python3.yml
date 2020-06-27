@@ -1,6 +1,8 @@
 ---
 - hosts: all
   become: yes
+  vars:
+    cdir: "{{lookup('env', 'HOME')}}/.config/cfg"
   tasks:
     - name: python3
       apt:
