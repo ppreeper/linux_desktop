@@ -18,8 +18,8 @@
         name:
         - syncthing
         state: present
-    - name: nextcloud desktop client
-      flatpak:
-        name: org.nextcloud.Nextcloud
-        state: present
-        remote: gnome
+    #- name: nextcloud desktop client
+      #flatpak:
+        #name: org.nextcloud.Nextcloud
+        #state: present
+        #remote: gnome
