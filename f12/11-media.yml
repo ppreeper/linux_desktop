@@ -1,0 +1,38 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: image tools (system)
+      pkgng:
+        name:
+        - jpegoptim
+        - pngquant
+        - gifsicle
+        state: latest
+    - name: image tools (npm)
+      npm:
+        name: svgo
+        global: yes
+        state: latest
+    - name: av codecs and tools
+      pkgng:
+        name:
+        - ffmpeg
+        - ogmtools
+        - opus-tools
+        - vorbis-tools
+        - flac
+        - mkvtoolnix
+        - cuetools
+        - shntool
+        - sox
+        - libdvdread
+        - dvdbackup
+        - vobcopy
+        - mediainfo
+        state: present
+    - name: media-player
+      pkgng:
+        name:
+        - mpv
+        state: present

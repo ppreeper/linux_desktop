@@ -1,0 +1,32 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: asciidoctor-pdf
+      gem:
+        name: asciidoctor-pdf
+        state: latest
+        pre_release: yes
+        user_install: yes
+    - name: asciidoctor
+      gem:
+        name: asciidoctor
+        state: latest
+        user_install: yes
+    - name: asciidoctor-diagram
+      gem:
+        name: asciidoctor-diagram
+        state: latest
+        user_install: yes
+    - name: asciidoctor-rouge
+      gem:
+        name: asciidoctor-rouge
+        state: latest
+        user_install: yes
+    - name: rouge
+      gem:
+        name: rouge
+        state: latest
+        user_install: yes
+
+

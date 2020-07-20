@@ -1,0 +1,26 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    # mariadb/mysql
+    - name: mysql client
+      pkgng:
+        name:
+        - mysql80-client
+        state: present
+    - name: postgresql-12 client
+      pkgng:
+        name:
+        - postgresql12-client
+        state: present
+    - name: sqlite3
+      pkgng:
+        name:
+        - sqlite3
+        state: present
+    - name: tds mssql
+      pkgng:
+        name:
+        - freetds
+        - unixODBC
+        state: present

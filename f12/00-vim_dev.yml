@@ -1,0 +1,301 @@
+---
+- hosts: all
+  gather_facts: yes
+  vars:
+    NODEJS_VERSION: "12"
+    cdir: "{{lookup('env', 'HOME')}}/.config/cfg"
+    user: "{{lookup('env', 'USER')}}"
+  become: yes
+  tasks:
+    - name: git
+      pkgng:
+        - git
+      state: latest
+    # python3
+    - name: python3
+      pkgng:
+        name:
+        - python3
+        - direnv
+        - xz-utils
+        - tk-dev
+        - libffi-dev
+        - liblzma-dev
+        - python-openssl
+        state: present
+    - name: 20_python
+      blockinfile:
+        path: "{{ cdir }}/20_python.cfg"
+        create: yes
+        marker: "# {mark} Python ENV"
+        block: |
+          PATH="${HOME}/.local/bin:${PATH}"
+    - name: config set ownership
+      file:
+        path: "{{ cdir }}/20_python.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: 99_pyenv
+      blockinfile:
+        path: "{{ cdir }}/99_pyenv.cfg"
+        create: yes
+        marker: "# {mark} Pyenv"
+        block: |
+          export PYENV_ROOT="$HOME/.pyenv"
+          export PATH="$PYENV_ROOT/bin:$PATH"
+          if command -v pyenv 1>/dev/null 2>&1; then
+            eval "$(pyenv init -)"
+          fi
+    - name: config set ownership
+      file:
+        path: "{{ cdir }}/99_pyenv.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+---
+    # javascript
+    - name: 20_js
+      blockinfile:
+        path: "{{ cdir }}/20_js.cfg"
+        create: yes
+        marker: "# {mark} Javascript ENV"
+        block: |
+          export NPM_PACKAGES="${HOME}/.local/npm-packages"
+          PATH="${NPM_PACKAGES}/bin:${PATH}"
+          export MANPATH="$NPM_PACKAGES/share/man:${MANPATH}"
+    - name: 20_js ownership
+      file:
+        path: "{{ cdir }}/20_js.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: npmrc remove
+      file:
+        path: "{{lookup('env', 'HOME')}}/.npmrc"
+        state: absent
+    - name: npmrc
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.npmrc"
+        create: yes
+        marker: ""
+        block: |
+          prefix=${HOME}/.local/npm-packages
+    - name: npmrc ownership
+      file:
+        path: "{{lookup('env', 'HOME')}}/.npmrc"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: nodejs npm
+      pkgng:
+        name:
+        - node12
+        - npm-node12
+        state: latest
+    - name: yarn
+      npm:
+        name: yarn@berry
+        global: yes
+        state: present
+    # go
+    - name: go
+      pkgng:
+        name:
+        - go
+        state: latest
+    - name: 20_go
+      blockinfile:
+        path: "{{ cdir }}/20_go.cfg"
+        create: yes
+        marker: "# {mark} Go ENV"
+        block: |
+          PATH="${HOME}/go/bin:${PATH}"
+    - name: config set ownership
+      file:
+        path: "{{ cdir }}/20_go.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    # ruby
+    - name: ruby
+      pkgng:
+        name:
+        - ruby
+        state: latest
+    - name: 20_ruby
+      blockinfile:
+        path: "{{ cdir }}/20_ruby.cfg"
+        create: yes
+        marker: "# {mark} Ruby ENV"
+        block: |
+          PATH=$(gem env gempath | awk -F":" '{print $1"/bin"}'):$PATH
+    - name: config set ownership
+      file:
+        path: "{{ cdir }}/20_ruby.cfg"
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    # neovim
+    - name: neovim
+      pkgng:
+        name:
+        - neovim
+        state: latest
+    - name: config dir
+      file:
+        path: "{{lookup('env', 'HOME')}}/.config/nvim"
+        state: directory
+        group: "{{lookup('env', 'USER')}}"
+        owner: "{{lookup('env', 'USER')}}"
+    - name: init.vim
+      blockinfile:
+        path: "{{lookup('env', 'HOME')}}/.config/nvim/init.vim"
+        create: yes
+        marker: '# {mark} neovim config'
+        block : |
+          if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
+            silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs 
+              \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+            autocmd!
+            autocmd VimEnter * PlugInstall
+          endif
+          call plug#begin('~/.local/share/nvim/plugged')
+          Plug 'tpope/vim-sensible'
+
+          Plug 'vim-airline/vim-airline'
+          Plug 'vim-airline/vim-airline-themes'
+          Plug 'morhetz/gruvbox'
+          Plug 'ryanoasis/vim-devicons'
+          Plug 'mechatroner/rainbow_csv'
+
+          Plug 'preservim/nerdcommenter'
+
+          Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+          Plug 'junegunn/fzf.vim'
+
+          Plug 'francoiscabrol/ranger.vim'
+          Plug 'rbgrouleff/bclose.vim'
+          Plug 'preservim/nerdtree'
+          Plug 'mkitt/tabline.vim'
+
+          Plug 'Chiel92/vim-autoformat'
+
+          Plug 'tpope/vim-fugitive'
+          Plug 'airblade/vim-gitgutter'
+
+          Plug 'w0rp/ale'
+
+          Plug 'jiangmiao/auto-pairs'
+
+          Plug 'neoclide/coc.nvim',{'branch': 'release'}
+          Plug 'neoclide/coc-pairs'
+
+          Plug 'josa42/coc-go'
+
+          Plug 'neoclide/coc-python'
+
+          Plug 'neoclide/coc-html'
+          Plug 'neoclide/coc-css'
+          Plug 'neoclide/coc-eslint'
+          Plug 'neoclide/coc-json'
+          Plug 'neoclide/coc-yaml'
+          Plug 'neoclide/coc-svg'
+
+          Plug 'neoclide/coc-rls'
+          Plug 'rust-lang/rust.vim'
+
+          Plug 'SirVer/ultisnips'
+          Plug 'neoclide/coc-snippets'
+
+          call plug#end()
+          filetype plugin indent on
+
+          syntax on
+          syntax enable
+
+          let base16colorspace=256
+          colorscheme gruvbox
+          set background=dark
+
+          if has("termguicolors")
+              set termguicolors
+          endif
+
+          if has("gui_running")
+              set guicursor=n-v-c-sm:block,i-ci-ve:block,r-cr-o:blocks
+          endif
+
+          set number
+
+          set hidden
+          set mouse=a
+          set noshowmode
+          set noshowmatch
+          set nolazyredraw
+
+          set nobackup
+          set noswapfile
+          set nowritebackup
+
+          set ignorecase
+          set smartcase
+          set hlsearch
+          set incsearch
+          set magic
+
+          set expandtab
+          set shiftwidth=4
+          set tabstop=4
+
+          set path+=**
+          set encoding=utf-8 nobomb
+          set ffs=unix,dos,mac
+
+          set autoread
+
+          let mapleader = ","
+          let g:mapleader = ","
+
+          set backspace=eol,start,indent
+
+          noremap <F3> :Autoformat<CR>
+
+          map <C-n> :NERDTreeToggle<CR>
+
+          nmap <leader>w :w!<CR>
+          nmap <leader>q :q<CR>
+
+          map <leader>ss :setlocal spell!<CR>
+          map <leader>sn ]s
+          map <leader>sp [s
+          map <leader>sa zg
+          map <leader>s? z=
+
+          nmap <C-_> <plug>NERDCommenterToggle
+          vmap <C-_> <plug>NERDCommenterToggle<cr>
+
+          autocmd FileType xml setlocal shiftwidth=2 tabstop=2
+          autocmd FileType yaml setlocal shiftwidth=2 tabstop=2
+          autocmd FileType yml setlocal shiftwidth=2 tabstop=2
+
+          let g:formatters_python = ['yapf']
+          let g:formatter_yapf_style = 'pep8'
+
+          let g:ale_lint_on_enter = 0
+          let g:ale_lint_on_text_changed = 'never'
+          let g:ale_echo_msg_error_str = 'E'
+          let g:ale_echo_msg_warning_str = 'W'
+          let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+          let g:ale_linters = {'python': ['flake8'], 'go': ['gopls'], 'css': ['sass']}
+
+          let g:airline_left_sep  = ''
+          let g:airline_right_sep = ''
+          let g:airline#extensions#ale#enabled = 1
+          let airline#extensions#ale#error_symbol = 'E:'
+          let airline#extensions#ale#warning_symbol = 'W:'
+
+          let g:python3_host_prog='/usr/local/bin/python3.7'
+
+          inoremap <silent><expr> <TAB> pumvisible() ? "\<TAB>" : coc#refresh()
+          inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+          function! s:check_back_space() abort
+              let col = col('.') -1
+              return !col || getline('.')[col - 1] =~# '\s'
+          endfunction
+

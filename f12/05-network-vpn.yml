@@ -1,0 +1,14 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: gnome network vpn connectors
+      apt:
+        name:
+        - network-manager-openconnect-gnome
+        - network-manager-openvpn-gnome
+        - network-manager-pptp-gnome
+        - network-manager-ssh-gnome
+        - network-manager-vpnc-gnome
+        - wireguard
+        state: latest

@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: CAD CAM Utils
+      pkgng:
+        name:
+        - FreeCad
+        - librecad
+        state: present

@@ -1,0 +1,15 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: evolution groupware client
+      pkgng:
+        name:
+        - evolution
+        - evolution-ews
+        state: present
+    - name: libreoffice
+      pkgng:
+        name:
+        - libreoffice
+        state: latest

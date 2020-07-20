@@ -1,0 +1,164 @@
+---
+- hosts: all
+  vars:
+    hdir: "{{lookup('env', 'HOME')}}"
+    cdir: "{{lookup('env', 'HOME')}}/.config/cfg"
+    user: "{{lookup('env', 'USER')}}"
+  become: yes
+  tasks:
+    - name: chmod mnt
+      file:
+        path: '/mnt'
+        mode: '0777'
+    - name: add bin dir
+      file:
+        path: "{{ hdir }}/bin"
+        state: directory
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    - name: add app dir
+      file:
+        path: "{{ hdir }}/app"
+        state: directory
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    - name: add mnt dir
+      file:
+        path: "{{ hdir }}/mnt"
+        state: directory
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    - name: add .cfg dir
+      file:
+        path: "{{ cdir }}"
+        state: directory
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    - name: add alias cfg
+      blockinfile:
+        path: "{{ cdir }}/aliases.cfg"
+        create: yes
+        marker: "# {mark} alias config"
+        block: |
+          alias update='sudo bash -c "freebsd-update fetch install ; pkg update ; pkg upgrade"'
+    - name: alias set ownership
+      file:
+        path: "{{ cdir }}/aliases.cfg"
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    # bash
+    - name: bash
+      pkgng:
+        name:
+        - bash
+        state: latest
+    - name: add .cfg load bash
+      blockinfile:
+        path: "{{ hdir }}/.bashrc"
+        create: yes
+        marker: "# {mark} cfg loader"
+        block: |
+          for f in ${HOME}/.config/cfg/*cfg
+          do
+            source ${f}
+          done
+    - name: add profile source
+      blockinfile:
+        path: "{{ hdir }}/.profile"
+        create: yes
+        marker: "# {mark} source bashrc"
+        block: |
+          if [ -f $HOME/.bashrc ]; then
+            . $HOME/.bashrc
+          fi
+    - name: downloaders
+      pkgng:
+        name:
+        - curl
+        - wget
+        - aria2
+        state: present
+    - name: file utils
+      pkgng:
+        name:
+        - mc
+        - fdupes
+        - tree
+        - ddrescue
+        - rename
+        state: present
+    - name: editor
+      pkgng:
+        name:
+        - neovim
+        state: present
+    - name: compression
+      pkgng:
+        name:
+        - lzop
+        - pigz
+        - unrar
+        - cabextract
+        - xz-utils
+        state: present
+    - name: benchmarking
+      pkgng:
+        name:
+        - fio
+        - siege
+        state: present
+    - name: mail utils
+      pkgng:
+        name:
+        - swaks
+        state: present
+    - name: remote file systems
+      pkgng:
+        name:
+        - fusefs-curlftpfs
+        - fusefs-sshfs
+        - nfs-common
+        - fusefs-smbnetfs
+        state: present
+    - name: network tools
+      pkgng:
+        name:
+        - nmap
+        state: present
+    - name: monitoring
+      pkgng:
+        name:
+        - htop
+        - tmux
+        state: present
+    - name: minicom config clear
+      file:
+        path: "{{ hdir }}/.minirc.dfl"
+        state: absent
+    - name: minicom config
+      blockinfile:
+        path: "{{ hdir }}/.minirc.dfl"
+        create: yes
+        marker: ""
+        block: |
+          pu port             /dev/ttyUSB0
+          pu baudrate         38400
+          pu bits             8
+          pu parity           N
+          pu stopbits         1
+          pu rtscts           No
+    - name: minicom config set ownership
+      file:
+        path: "{{ hdir }}/.minirc.dfl"
+        group: "{{ user }}"
+        owner: "{{ user }}"
+    - name: minicom
+      pkgng:
+        name:
+        - minicom
+        state: present
+    - name: add existing user "{{ user }}" to tty,dialout
+      user:
+        name: "{{ user }}"
+        groups: tty,dialer
+        append: yes

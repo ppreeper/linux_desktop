@@ -1,0 +1,9 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: hugo
+      pkgng:
+        name:
+          - gohugo
+        state: latest

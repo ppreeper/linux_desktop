@@ -1,0 +1,12 @@
+---
+- hosts: all
+  become: yes
+  tasks:
+    - name: remmina
+      pkgng:
+        name:
+        - remmina
+        - remmina-plugin-rdp
+        - remmina-plugin-vnc
+        - remmina-plugin-spice
+        state: present
