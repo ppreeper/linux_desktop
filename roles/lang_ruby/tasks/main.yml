@@ -1,0 +1,27 @@
+---
+- import_role:
+    name: userhome
+
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# ruby
+- name: ruby
+  apt:
+    name:
+      - ruby
+    state: present
+# cfg ruby
+- name: cfg 20_ruby
+  template:
+    src: "cfg/20_ruby.cfg"
+    dest: "{{ config }}/cfg/20_ruby.cfg"
+- name: cfg 20_ruby chown
+  file:
+    path: "{{ config }}/cfg/20_ruby.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+

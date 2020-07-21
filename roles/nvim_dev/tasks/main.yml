@@ -1,0 +1,63 @@
+---
+- import_role:
+    name: userhome
+- import_role:
+    name: nvim
+- import_role:
+    name: lang_go
+- import_role:
+    name: lang_javascript
+
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# neovim config
+- name: add nvim dir
+  file:
+    path: "{{ config}}/nvim"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: nvim init.vim
+  template:
+    src: "nvim/init.vim"
+    dest: "{{ config}}/nvim/init.vim"
+- name: init.vim chown
+  file:
+    path: "{{ config}}/nvim/init.vim"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: nvim coc settings
+  template:
+    src: "nvim/coc-settings.json"
+    dest: "{{ config}}/nvim/coc-settings.json"
+- name: coc settings chown
+  file:
+    path: "{{ config}}/nvim/coc-settings.json"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+# code helpers
+- name: npm sass
+  npm:
+    name: sass
+    global: yes
+    state: present
+- name: npm bash-language-server
+  npm:
+    name: bash-language-server
+    global: yes
+    state: present
+
+- name: pip addons
+  pip:
+    executable: pip3
+    name:
+      - pynvim
+      - jedi
+      - yapf
+      - python-language-server[all]
+    state: present
+

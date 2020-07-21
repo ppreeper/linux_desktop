@@ -1,0 +1,134 @@
+---
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# base utils
+- name: bash
+  apt:
+    name:
+      - bash
+    state: present
+- name: git
+  apt:
+    name: 
+      - git
+    state: present
+- name: downloaders
+  apt:
+    name:
+      - curl
+      - wget
+      - aria2
+      - netcat
+      - pv
+    state: present
+- name: file utils
+  apt:
+    name:
+      - mc
+      - fdupes
+      - tree
+      - rename
+      - gddrescue
+    state: present
+- name: compression
+  apt:
+    name:
+      - lzop
+      - pigz
+      - unrar
+      - cabextract
+    state: present
+- name: mail utils
+  apt:
+    name:
+      - swaks
+    state: present
+- name: monitoring
+  apt:
+    name:
+      - htop
+      - nmon
+      - tmux
+    state: present
+- name: remote file systems
+  apt:
+    name:
+      - curlftpfs
+      - sshfs
+      - nfs-common
+      - samba
+      - cifs-utils
+      - krb5-user
+    state: present
+- name: network tools
+  apt:
+    name:
+      - nmap
+      - nmapsi4
+    state: present
+
+
+# initialize user home
+- name: add mnt dir
+  file:
+    path: "{{ home }}/mnt"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: add bin dir
+  file:
+    path: "{{ home }}/bin"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: add .config dir
+  file:
+    path: "{{ config }}"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: add .cfg dir
+  file:
+    path: "{{ config }}/cfg"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+
+- name: profile source bashrc
+  blockinfile:
+    path: "{{ home }}/.profile"
+    create: yes
+    marker: "# {mark} source bashrc"
+    block: |
+      if [ -f $HOME/.bashrc ]; then
+        . $HOME/.bashrc
+      fi
+
+- name: profile add .cfg dir 
+  blockinfile:
+    path: "{{ home }}/.profile"
+    create: yes
+    marker: "# {mark} cfg loader"
+    block: |
+      for f in ${HOME}/.config/cfg/*cfg
+      do
+        source ${f}
+      done
+
+# cfg bin dir
+- name: 00_bin
+  template:
+    src: cfg/00_bin.cfg
+    dest: "{{ config }}/cfg/00_bin.cfg"
+- name: 00_bin chown
+  file:
+    path: "{{ config }}/cfg/00_bin.cfg"
+    owner: ubuntu
+    group: ubuntu
+

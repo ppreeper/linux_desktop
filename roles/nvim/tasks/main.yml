@@ -1,0 +1,37 @@
+---
+- import_role:
+    name: userhome
+
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# neovim setup
+- name: vim purge
+  apt:
+    name:
+      - vim
+    state: absent
+- name: neovim
+  apt:
+    name:
+      - neovim
+    state: present
+# neovim config
+- name: add nvim dir
+  file:
+    path: "{{ config }}/nvim"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: nvim init.vim
+  template:
+    src: nvim/init.vim
+    dest: "{{ config }}/nvim/init.vim"
+- name: init.vim chown
+  file:
+    path: "{{ config }}/nvim/init.vim"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+

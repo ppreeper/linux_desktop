@@ -1,0 +1,37 @@
+---
+- import_role:
+    name: userhome
+
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# python3
+- name: python3
+  apt:
+    name:
+      - python3
+      - python3-pip
+    state: present
+# cfg python
+- name: cfg 20_python
+  template:
+    src: "cfg/20_python.cfg"
+    dest: "{{ config }}/cfg/20_python.cfg"
+- name: cfg 20_python chown
+  file:
+    path: "{{ config }}/cfg/20_python.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: pip addons
+  pip:
+    executable: pip3
+    name:
+      - pynvim
+      - jedi
+      - yapf
+      - python-language-server[all]
+    state: present
+

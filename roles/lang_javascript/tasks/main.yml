@@ -1,0 +1,50 @@
+---
+- import_role:
+    name: userhome
+
+- name: update
+  apt:
+    update_cache: yes
+    force_apt_get: yes
+
+# javascript
+- name: nodejs gpg key
+  apt_key:
+    url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
+    state: present
+- name: nodejs repository file
+  file:
+    path: '/etc/apt/sources.list.d/nodesource.list'
+    state: absent
+- name: nodejs repository
+  apt_repository:
+    validate_certs: no
+    repo: 'deb [arch=amd64] https://deb.nodesource.com/node_{{NODE_VERSION}}.x {{ ansible_lsb.codename|lower }} main'
+    state: present
+    filename: nodesource
+    update_cache: yes
+- name: nodejs install
+  apt:
+    name:
+      - nodejs
+    state: present
+# cfg javascript    
+- name: cfg 20_js
+  template:
+    src: "cfg/20_js.cfg"
+    dest: "{{ config }}/cfg/20_js.cfg"
+- name: cfg 20_js chown
+  file:
+    path: "{{ config }}/cfg/20_js.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: npmrc
+  template:
+    src: npmrc
+    dest: "{{ home }}/.npmrc"
+- name: npmrc chown
+  file:
+    path: "{{ home }}/.npmrc"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
