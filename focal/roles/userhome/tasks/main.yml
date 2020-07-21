@@ -1,0 +1,62 @@
+---
+# initialize user home
+- name: add mnt dir
+  file:
+    path: "{{ home }}/mnt"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: add bin dir
+  file:
+    path: "{{ home }}/bin"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: add .config dir
+  file:
+    path: "{{ config }}"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: add .cfg dir
+  file:
+    path: "{{ config }}/cfg"
+    state: directory
+    owner: "{{ user }}"
+    group: "{{ user }}"
+
+- name: profile source bashrc
+  blockinfile:
+    path: "{{ home }}/.profile"
+    create: yes
+    marker: "# {mark} source bashrc"
+    block: |
+      if [ -f $HOME/.bashrc ]; then
+        . $HOME/.bashrc
+      fi
+
+- name: profile add .cfg dir 
+  blockinfile:
+    path: "{{ home }}/.profile"
+    create: yes
+    marker: "# {mark} cfg loader"
+    block: |
+      for f in ${HOME}/.config/cfg/*cfg
+      do
+        source ${f}
+      done
+
+# cfg bin dir
+- name: 00_bin
+  template:
+    src: cfg/00_bin.cfg
+    dest: "{{ config }}/cfg/00_bin.cfg"
+- name: 00_bin chown
+  file:
+    path: "{{ config }}/cfg/00_bin.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+

@@ -1,0 +1,34 @@
+---
+- name: minicom config clear
+  file:
+    path: "{{ home }}/.minirc.dfl"
+    state: absent
+- name: minicom config
+  blockinfile:
+    path: "{{ home }}/.minirc.dfl"
+    create: yes
+    marker: ""
+    block: |
+      pu port             /dev/ttyUSB0
+      pu baudrate         38400
+      pu bits             8
+      pu parity           N
+      pu stopbits         1
+      pu rtscts           No
+- name: minicom config set ownership
+  file:
+    path: "{{ home }}/.minirc.dfl"
+    group: "{{ user }}"
+    owner: "{{ user }}"
+- name: minicom
+  apt:
+    name:
+    - minicom
+    state: present
+- name: add existing user "{{ user }}" to tty,dialout
+  user:
+    name: "{{ user }}"
+    groups: 
+      - tty
+      - dialout
+    append: yes

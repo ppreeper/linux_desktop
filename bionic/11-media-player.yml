@@ -1,9 +1,0 @@
----
-- hosts: all
-  become: yes
-  tasks:
-    - name: media-player
-      apt:
-        name:
-        - gnome-mpv
-        state: present
