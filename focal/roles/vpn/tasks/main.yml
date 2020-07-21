@@ -1,0 +1,6 @@
+---
+- name: network vpn connectors
+  apt:
+    name:
+    - wireguard
+    state: latest

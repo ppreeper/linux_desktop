@@ -49,14 +49,43 @@
         source ${f}
       done
 
-# cfg bin dir
-- name: 00_bin
+# cfg 00-prompt
+- name: 00-prompt
   template:
-    src: cfg/00_bin.cfg
-    dest: "{{ config }}/cfg/00_bin.cfg"
-- name: 00_bin chown
+    src: "cfg/00-prompt.cfg"
+    dest: "{{ config }}/cfg/00-prompt.cfg"
+- name: 00-prompt chown
   file:
-    path: "{{ config }}/cfg/00_bin.cfg"
+    path: "{{ config }}/cfg/00-prompt.cfg"
     owner: "{{ user }}"
     group: "{{ user }}"
-
+# cfg 01-bash_autocomplete
+- name: 01-bash_autocomplete
+  template:
+    src: "cfg/01-bash_autocomplete.cfg"
+    dest: "{{ config }}/cfg/01-bash_autocomplete.cfg"
+- name: 01-bash_autocomplete chown
+  file:
+    path: "{{ config }}/cfg/01-bash_autocomplete.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+# cfg 10-homebin dir
+- name: 10-homebin
+  template:
+    src: "cfg/10-homebin.cfg"
+    dest: "{{ config }}/cfg/10-homebin.cfg"
+- name: 10-homebin chown
+  file:
+    path: "{{ config }}/cfg/10-homebin.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+# cfg aliases.cfg
+- name: aliases
+  template:
+    src: "cfg/aliases.cfg"
+    dest: "{{ config }}/cfg/aliases.cfg"
+- name: aliases chown
+  file:
+    path: "{{ config }}/cfg/aliases.cfg"
+    owner: "{{ user }}"
+    group: "{{ user }}"

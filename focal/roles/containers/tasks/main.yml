@@ -1,0 +1,28 @@
+---
+- name: docker.io
+  apt:
+    name:
+    - docker.io
+    state: present
+- name: add existing user "{{ user }}" to group docker
+  user:
+    name: "{{ user }}"
+    groups: 
+      - docker
+    append: yes
+- name: docker-compose
+  pip:
+    executable: pip3
+    name:
+      - docker-compose
+    state: present
+- name: lxd
+  snap:
+    name: lxd
+    state: present
+- name: add existing user "{{ user }}" to group lxd
+  user:
+    name: "{{ user }}"
+    groups: 
+      - lxd
+    append: yes

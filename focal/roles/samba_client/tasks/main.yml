@@ -1,0 +1,25 @@
+---
+- name: remote file systems
+  apt:
+    name:
+      - samba
+      - cifs-utils
+      - krb5-user
+    state: present
+- name: remove winbind
+  replace:
+    path: /etc/nsswitch.conf
+    regexp: '\s+winbind'
+    replace: ''
+- name: passwd winbind
+  replace:
+    backup: yes
+    path: /etc/nsswitch.conf
+    regexp: '^(passwd.*)$'
+    replace: '\1 winbind'
+- name: group winbind
+  replace:
+    backup: yes
+    path: /etc/nsswitch.conf
+    regexp: '^(group.*)$'
+    replace: '\1 winbind'

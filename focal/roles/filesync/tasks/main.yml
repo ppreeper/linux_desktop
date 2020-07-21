@@ -1,0 +1,31 @@
+---
+- name: syncthing repo key
+  apt_key:
+    url: "https://syncthing.net/release-key.txt"
+    state: present
+- name: syncthing repository remove
+  file:
+    path: "/etc/apt/sources.list.d/syncthing.list"
+    state: absent
+- name: syncthing repository add
+  apt_repository:
+    validate_certs: no
+    repo: "deb [arch=amd64] https://apt.syncthing.net/ syncthing stable"
+    state: present
+    filename: syncthing
+    update_cache: yes
+- name: syncthing
+  apt:
+    name:
+    - syncthing
+    state: latest
+- name: nextcloud desktop client repo add
+  apt_repository:
+    validate_certs: no
+    repo: "ppa:nextcloud-devs/client"
+    update_cache: yes
+- name: nextcloud desktop client
+  apt:
+    name:
+      - nextcloud-client
+    state: latest

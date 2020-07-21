@@ -1,0 +1,11 @@
+---
+- name: libreoffice repository add
+  apt_repository:
+    validate_certs: no
+    repo: "ppa:libreoffice/ppa"
+    update_cache: yes
+- name: libreoffice
+  apt:
+    name:
+    - libreoffice
+    state: latest

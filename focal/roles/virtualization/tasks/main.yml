@@ -1,0 +1,7 @@
+---
+- name: kvm virtualization
+  apt:
+    name:
+    - qemu-kvm
+    - virt-viewer
+    state: present

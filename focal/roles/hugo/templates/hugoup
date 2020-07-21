@@ -1,0 +1,63 @@
+#!/bin/bash
+APP=hugo
+APPLCL=$(which $APP)
+REPO="https://github.com/gohugoio/hugo"
+TAGFILTER="refs/tags"
+
+major=$( git ls-remote --tags ${REPO} | grep ${TAGFILTER} | grep -v -e "alpha" -e "beta" -e "{}" -e "[Rr][Cc][123456789]" | awk '{print $2}' | sed "s/refs\/tags\///" | awk -F'.' '{print $1}' | sort -g | uniq | tail -1)
+
+minor=$( git ls-remote --tags ${REPO} | grep ${TAGFILTER} | grep -v -e "alpha" -e "beta" -e "{}" -e "[Rr][Cc][123456789]" | awk '{print $2}' | sed "s/refs\/tags\///" | grep ^$major | awk -F'.' '{print $2}' | sort -g | uniq | tail -1)
+
+patch=$( git ls-remote --tags ${REPO} | grep ${TAGFILTER} | grep -v -e "alpha" -e "beta" -e "{}" -e "[Rr][Cc][123456789]" | awk '{print $2}' | sed "s/refs\/tags\///" | grep ^$major.$minor | awk -F'.' '{print $3}' | sort -g | uniq | tail -1)
+
+vers=""
+
+if [ "$patch" = "" ]; then
+    vers=$major.$minor
+else
+    vers=$major.$minor.$patch
+fi
+echo $vers
+
+BDIR=/usr/local/bin
+
+function download(){
+    echo "download $1 version"
+    echo "Installing ${vers}"
+    V=$(echo $vers | sed 's/v//')
+    sudo rm -f /tmp/${vers}.tar.gz
+    wget -qc ${REPO}/releases/download/${vers}/$APP"_extended_"${V}_Linux-64bit.tar.gz -O /tmp/${vers}.tar.gz
+    sudo rm -f ${BDIR}/$APP
+    sudo tar axf /tmp/${vers}.tar.gz -C ${BDIR}
+    #sudo rm -f /tmp/${vers}.tar.gz
+}
+
+function uptodate(){
+    echo $APP" version is current"
+}
+
+if [ "${APP}" == "" ]; then
+    echo "Not Installed"
+    download new
+else
+    echo "Installed"
+    #download new
+    APPVER=$(${APPLCL} version | awk -F '-' '{print $1}' | awk '{print $NF}' )
+    APPMAJOR=$(echo $APPVER | awk -F'.' '{print $1}')
+    APPMINOR=$(echo $APPVER | awk -F'.' '{print $2}')
+    APPPATCH=$(echo $APPVER | awk -F'.' '{print $3}')
+    if [ $((${APPMAJOR})) -lt $((${major})) ]; then
+        download major
+    else
+        if [ $((${APPMINOR})) -lt $((${minor})) ]; then
+            download minor
+        else
+            if [ $((${APPPATCH})) -lt $((${patch})) ]; then
+                download patch
+            else
+                uptodate
+                #echo "download"
+            fi
+        fi
+    fi
+fi

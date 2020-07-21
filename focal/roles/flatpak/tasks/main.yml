@@ -1,8 +1,14 @@
 ---
-    # flatpak flathub repo
-    - name: flatpak repo
-      flatpak_remote:
-        name: flathub
-        state: present
-        flatpakrepo_url: https://dl.flathub.org/repo/flathub.flatpakrepo
-        method: user
+# install flatpak
+- name: install flatpak
+  apt:
+    name:
+      - flatpak
+    state: present
+# install flathub repo
+- name: install flathub repo
+  flatpak_remote:
+    name: flathub
+    state: present
+    flatpakrepo_url: "https://dl.flathub.org/repo/flathub.flatpakrepo"
+    method: user

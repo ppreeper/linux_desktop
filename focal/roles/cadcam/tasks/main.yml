@@ -1,0 +1,17 @@
+---
+- name: librecad
+  apt:
+    name:
+    - librecad
+    state: present
+
+- name: freecad
+  snap:
+    name: freecad
+    state: present
+
+- name: dxf2gcode
+  apt:
+    name:
+    - dxf2gcode
+    state: present

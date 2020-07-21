@@ -1,0 +1,6 @@
+---
+- name: mysql client
+  apt:
+    name:
+    - mysql-client
+    state: present

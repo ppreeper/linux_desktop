@@ -1,0 +1,13 @@
+---
+# snap store removal
+- name: remove snap-store
+  snap:
+    name: snap-store
+    state: absent
+# gnome software store
+- name: gnome software store
+  apt:
+    name:
+    - gnome-software
+    - gnome-software-plugin-snap
+    state: present

@@ -1,0 +1,6 @@
+---
+- name: mariadb client
+  apt:
+    name:
+    - mariadb-client
+    state: present

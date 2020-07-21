@@ -5,16 +5,6 @@
     force_apt_get: yes
 
 # base utils
-- name: bash
-  apt:
-    name:
-      - bash
-    state: present
-- name: git
-  apt:
-    name: 
-      - git
-    state: present
 - name: downloaders
   apt:
     name:
@@ -40,6 +30,7 @@
       - pigz
       - unrar
       - cabextract
+      - upx-ucl
     state: present
 - name: mail utils
   apt:

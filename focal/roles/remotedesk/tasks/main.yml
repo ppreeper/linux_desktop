@@ -1,0 +1,13 @@
+---
+- name: remmina
+  apt:
+    name:
+    - remmina
+    - remmina-plugin-rdp
+    - remmina-plugin-vnc
+    - remmina-plugin-spice
+    state: present
+- name: teamviewer
+  apt:
+    deb: "https://download.teamviewer.com/download/linux/teamviewer_amd64.deb"
+    state: present

@@ -1,0 +1,45 @@
+---
+- import_role:
+    name: lang_javascript
+
+- name: image tools (system)
+  apt:
+    name:
+    - jpegoptim
+    - pngquant
+    - gifsicle
+    state: latest
+- name: image tools (npm)
+  npm:
+    name: svgo
+    global: yes
+    state: latest
+- name: av codec lib
+  apt:
+    name:
+    - gstreamer1.0-libav
+    - gstreamer1.0-plugins-good
+    - gstreamer1.0-plugins-bad
+    - gstreamer1.0-plugins-ugly
+    - libavcodec-extra
+    - libdvdread7
+    - ubuntu-restricted-extras
+    - ubuntu-restricted-addons
+- name: av tools
+  apt:
+    name:
+    - ffmpeg
+    - oggz-tools
+    - ogmtools
+    - opus-tools
+    - vorbis-tools
+    - flac
+    - mkvtoolnix
+    - vpx-tools
+    - cuetools
+    - shntool
+    - sox
+    - dvdbackup
+    - vobcopy
+    - mediainfo
+    state: present

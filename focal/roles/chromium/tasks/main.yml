@@ -1,0 +1,5 @@
+---
+- name: chromium
+  snap:
+    name: chromium
+    state: present

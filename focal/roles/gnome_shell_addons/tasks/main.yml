@@ -1,0 +1,7 @@
+---
+- name: gnome addons
+  apt:
+    name:
+    - chrome-gnome-shell
+    - gnome-tweaks
+    state: latest
