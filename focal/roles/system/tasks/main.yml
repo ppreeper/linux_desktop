@@ -25,4 +25,5 @@
     name:
       - apt-transport-https
       - pkg-config
+      - gnupg2
     state: present

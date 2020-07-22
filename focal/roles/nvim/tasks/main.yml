@@ -27,7 +27,7 @@
     group: "{{ user }}"
 - name: nvim init.vim
   template:
-    src: nvim/init.vim
+    src: "nvim/init.vim"
     dest: "{{ config }}/nvim/init.vim"
 - name: init.vim chown
   file:

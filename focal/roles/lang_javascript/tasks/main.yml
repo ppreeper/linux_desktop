@@ -1,7 +1,4 @@
 ---
-- import_role:
-    name: userhome
-
 - name: update
   apt:
     update_cache: yes
