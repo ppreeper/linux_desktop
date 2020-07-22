@@ -150,14 +150,18 @@ nmap <leader>q :q<CR>
 
 " text spelling <leader>ss toggles spellcheck
 map <leader>ss :setlocal spell!<CR>
-" next word
 map <leader>sn ]s
-" prev word
 map <leader>sp [s
-" add to dictionary
 map <leader>sa zg
-" search replacement
 map <leader>s? z=
+
+" split screen
+nnoremap <C-J> <C-W><C-J>
+nnoremap <C-K> <C-W><C-K>
+nnoremap <C-L> <C-W><C-L>
+nnoremap <C-H> <C-W><C-H>
+set splitbelow
+set splitright
 
 " NERDCommenter
 nmap <C-_> <plug>NERDCommenterToggle
@@ -195,7 +199,6 @@ let g:python3_host_prog='/usr/bin/python3'
 
 inoremap <silent><expr> <TAB> pumvisible() ? "\<TAB>" : coc#refresh()
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
 
 function! s:check_back_space() abort
     let col = col('.') -1
