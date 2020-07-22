@@ -24,6 +24,6 @@ else
     if [ -z "$1" ]; then
         echo "no playbook.yml specified"
     else
-        echo $aplay -b -K $1
+        $aplay -b -K $1
     fi
 fi
