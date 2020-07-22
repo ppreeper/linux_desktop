@@ -1,0 +1,6 @@
+---
+- name: apport
+  replace:
+    path: /etc/default/apport
+    regexp: '^enabled=.*$'
+    replace: 'enabled=0'
