@@ -1,0 +1,31 @@
+---
+- hosts: desktops
+  vars:
+    home: "/home/ubuntu"
+    config: "/home/ubuntu/.config"
+    local: "/home/ubuntu/.local"
+    user: "ubuntu"
+  roles:
+    - system
+    - userhome
+    - cli_utils
+    #- gnome-shell
+    - nvim_dev
+    - office
+    #- chromium
+    - filesync
+    - vpn
+    - remotedesk
+    #- lang_go
+    #- lang_javascript
+    #- lang_java
+    #- lang_python
+    #- lang_ruby
+    #- vscode
+    - containers
+    - virtualization
+    - db_sqlite3
+    - media
+    #- cadcam
+    - asciidoc
+    - hugo
