@@ -14,5 +14,3 @@
     owner: "{{ user }}"
     group: "{{ user }}"
     mode: "0755"
-- name: hugoup install
-  command: "{{ home }}/bin/hugoup"

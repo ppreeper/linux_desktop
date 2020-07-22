@@ -26,4 +26,5 @@
       - apt-transport-https
       - pkg-config
       - gnupg2
+      - snapd
     state: present

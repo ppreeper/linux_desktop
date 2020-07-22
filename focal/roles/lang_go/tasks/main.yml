@@ -28,4 +28,6 @@
     path: "{{ config }}/cfg/20_go.cfg"
     owner: "{{ user }}"
     group: "{{ user }}"
-
+# install go
+- name: install go
+  command: "{{ home }}/bin/goup"

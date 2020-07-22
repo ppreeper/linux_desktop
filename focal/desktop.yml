@@ -8,6 +8,7 @@
     #- gnome-shell
     - nvim_dev
     - office
+    - email
     #- chromium
     - filesync
     - vpn
@@ -22,6 +23,6 @@
     - virtualization
     - db_sqlite3
     - media
-    #- cadcam
+    - cadcam
     - asciidoc
     - hugo

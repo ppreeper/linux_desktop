@@ -1,0 +1,7 @@
+---
+- name: java
+  apt:
+    name:
+    - openjfx
+    - default-jre
+    state: present
