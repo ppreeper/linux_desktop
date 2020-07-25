@@ -40,7 +40,7 @@
 
 - name: profile add .cfg dir 
   blockinfile:
-    path: "{{ home }}/.profile"
+    path: "{{ home }}/.bashrc"
     create: yes
     marker: "# {mark} cfg loader"
     block: |
