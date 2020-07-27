@@ -55,13 +55,3 @@
     global: yes
     state: present
 
-- name: pip addons
-  pip:
-    executable: pip3
-    name:
-      - pynvim
-      - jedi
-      - yapf
-      - python-language-server[all]
-    state: present
-
