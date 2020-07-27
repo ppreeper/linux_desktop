@@ -31,3 +31,7 @@
 # install go
 - name: install go
   command: "{{ home }}/bin/goup"
+# install gopls
+- name: install gopls
+  become: '{{ user }}'
+  command: GO111MODULE=on go get golang.org/x/tools/gopls@latest
