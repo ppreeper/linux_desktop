@@ -19,7 +19,7 @@ fi
 echo $vers
 
 
-BDIR=/usr/local/bin
+BDIR=/usr/bin
 
 function download() {
     echo "download $1 version"
