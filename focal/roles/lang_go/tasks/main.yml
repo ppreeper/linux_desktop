@@ -34,4 +34,6 @@
 # install gopls
 - name: install gopls
   become: '{{ user }}'
-  command: "GO111MODULE=on go get golang.org/x/tools/gopls@latest"
+  environment:
+    - GO111MODULE: "on"
+  shell: "go get golang.org/x/tools/gopls@latest"
