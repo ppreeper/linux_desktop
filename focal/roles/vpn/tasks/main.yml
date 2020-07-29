@@ -10,7 +10,7 @@
     dest: "{{ item.dest }}"
     mode: "{{ item.mode }}"
     owner: "{{ user }}"
-    owner: "{{ group }}"
+    group: "{{ user }}"
   with_items:
     - { src: "bin/wgadd", dest: "{{ home }}/bin/", mode: "0755" }
     - { src: "bin/wgdel", dest: "{{ home }}/bin/", mode: "0755" }
