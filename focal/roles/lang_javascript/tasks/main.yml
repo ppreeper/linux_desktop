@@ -9,10 +9,12 @@
   apt_key:
     url: 'https://deb.nodesource.com/gpgkey/nodesource.gpg.key'
     state: present
-- name: nodejs repository file
-  file:
-    path: '/etc/apt/sources.list.d/nodesource.list'
+- name: nodejs repository remove
+  apt_repository:
+    validate_certs: no
+    repo: 'deb [arch=amd64] https://deb.nodesource.com/node_{{NODE_VERSION}}.x {{ ansible_lsb.codename|lower }} main'
     state: absent
+    filename: nodesource
 - name: nodejs repository
   apt_repository:
     validate_certs: no
