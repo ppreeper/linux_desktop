@@ -59,7 +59,7 @@
     name:
       - nmap
     state: present
-- name: wireguard cli helpers
+- name: cli helpers
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
