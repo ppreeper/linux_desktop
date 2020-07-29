@@ -3,6 +3,7 @@
   become: yes
   roles:
     - system
+    - sysctl_custom
     - userhome
     - cli_utils
     #- gnome-shell
