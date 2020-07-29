@@ -1,0 +1,15 @@
+#!/bin/bash
+CPUSTR=$(cat /proc/cpuinfo | grep ^processor | wc -l| tr -d '[:space:]')
+CPUNUM=$(expr $CPUSTR / 2)
+CPU=2
+MEMNUM=$(expr $(free -t -m | grep ^Mem | awk '{print $2}') / 2)
+MEM=2048
+if [ $CPUNUM -gt $CPU ]; then
+    CPU=$CPUNUM
+fi
+if [ $MEMNUM -gt $MEM ]; then
+    MEM=$MEMNUM
+fi
+minikube stop
+minikube delete
+minikube start --cpus $CPU --memory $MEM --disk-size 60g

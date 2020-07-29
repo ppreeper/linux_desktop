@@ -26,3 +26,20 @@
     groups: 
       - lxd
     append: yes
+- name: container cli helpers
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  with_items:
+    - { src: "bin/wgadd", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/wgdel", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/dockreset", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/genregcred", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/getkube", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/mkfullreset", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/up-helm", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/up-kubectl", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "/bin/up-minikube", dest: "{{ home }}/bin/", mode: "0755" }
