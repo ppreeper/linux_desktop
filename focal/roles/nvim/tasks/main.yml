@@ -29,6 +29,11 @@
     group: "{{ user }}"
 - name: nvim install
   command: "{{ home }}/bin/nvimup"
+- name: vim symlink
+  file:
+    src: "/usr/bin/nvim"
+    dest: "/usr/bin/vim"
+    state: link
 # neovim config
 - name: add nvim dir
   file:
