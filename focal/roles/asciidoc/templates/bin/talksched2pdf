@@ -1,0 +1,9 @@
+#!/bin/bash
+FILE="${1}"
+DOC="$(echo ${FILE%.*})"
+THEME="$HOME/workspace/asciidoc/themes/"
+STYLE=pub_sched
+
+asciidoc -a icons -b html5 --theme=${STYLE} "${DOC}.adoc"
+wkhtmltopdf -s Letter -O Landscape "${DOC}.html" "${DOC}.pdf"
+rm "${DOC}.html"

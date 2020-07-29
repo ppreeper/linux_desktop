@@ -28,5 +28,16 @@
     name: rouge
     state: latest
     user_install: yes
-
-
+- name: asciidoctor helpers
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  with_items:
+    - { src: "bin/adoc2pdf", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/adoc2pdfwatch", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/asciidocup", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/talk2pdf", dest: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/talksched2pdf", dest: "{{ home }}/bin/", mode: "0755" }

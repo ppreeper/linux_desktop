@@ -1,0 +1,10 @@
+#!/bin/bash
+FILE="${1}"
+DOC="$(echo ${FILE%.*})"
+THEME="$HOME/workspace/asciidoctor"
+STYLE=basic
+
+while inotifywait -e modify "${DOC}.adoc"; do
+asciidoctor-pdf -a allow-uri-read -a pdf-themesdir=$THEME/themes -a pdf-theme=$STYLE -a pdf-fontsdir=$THEME/fonts -r asciidoctor-diagram "${DOC}.adoc"
+rm -f "${DOC}.html"
+done
