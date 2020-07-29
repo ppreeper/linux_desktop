@@ -1,0 +1,5 @@
+---
+- name: wkhtmltopdf
+  apt:
+    deb: "https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.focal_amd64.deb"
+    state: present
