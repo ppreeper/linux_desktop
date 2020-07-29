@@ -4,11 +4,9 @@
     url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
     state: present
 - name: postgres repository remove
-  apt_repository:
-    validate_certs: no
-    repo: "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename|lower }}-pgdg main"
+  file:
+    path: "/etc/apt/sources.list.d/postgres.list"
     state: absent
-    filename: postgres
 - name: postgres repository add
   apt_repository:
     validate_certs: no
