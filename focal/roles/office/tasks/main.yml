@@ -1,9 +1,12 @@
 ---
 - name: libreoffice repository remove
+  stat:
+    path: "/etc/apt/sources.list.d/libreoffice.list"
+  register: stat_result
   file:
     path: "/etc/apt/sources.list.d/libreoffice.list"
     state: absent
-    force: yes
+  when: stat_result.stat.exists=True
 - name: libreoffice repository add
   apt_repository:
     validate_certs: no
