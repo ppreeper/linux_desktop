@@ -43,3 +43,48 @@
     - vobcopy
     - mediainfo
     state: present
+- name: av cli helpers
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dst }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  with_items:
+    - { src: "bin/conv.sh", dst: "{{ home }}/bin/", mode: "0755" }
+    - { src: "bin/convwebm", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/cpy2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/crop2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/cropdetect", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/cropvid2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/cropvob2mp4.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/crp2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/drip", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/dvd2rip", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/dvd2vob", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/flaccue", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/imageopt", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/iso2vob", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/mp42mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/rip2vob", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-blueboxtone-generator.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-pinknoise.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-startrekenginewhitenoise.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-touchtone-generator.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-wavesonbeach.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/sox-whitenoise.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/toopus", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/tovorb", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/v2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/va.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vc.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vhfa.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vhfc.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vhf.sh", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vid2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vid2srt", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vid2webm", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vidrotate90clock", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vob2mp4", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vpx1pfast", dst: "{{ home  }}/bin/", mode: "0755" }
+    - { src: "bin/vr.sh", dst: "{{ home  }}/bin/", mode: "0755" }

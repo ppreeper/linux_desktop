@@ -30,18 +30,14 @@
   template:
     src: "cfg/20_js.cfg"
     dest: "{{ config }}/cfg/20_js.cfg"
-- name: cfg 20_js chown
-  file:
-    path: "{{ config }}/cfg/20_js.cfg"
+    mode: "0644"
     owner: "{{ user }}"
     group: "{{ user }}"
 - name: npmrc
   template:
     src: npmrc
     dest: "{{ home }}/.npmrc"
-- name: npmrc chown
-  file:
-    path: "{{ home }}/.npmrc"
+    mode: "0644"
     owner: "{{ user }}"
     group: "{{ user }}"
 

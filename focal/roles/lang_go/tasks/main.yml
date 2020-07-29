@@ -18,14 +18,14 @@
     src: "bin/goup"
     dest: "{{ home }}/bin/goup"
     mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user }}"
 # cfg go
 - name: cfg 20_go
   template:
     src: "cfg/20_go.cfg"
     dest: "{{ config }}/cfg/20_go.cfg"
-- name: cfg 20_go chown
-  file:
-    path: "{{ config }}/cfg/20_go.cfg"
+    mode: "0644"
     owner: "{{ user }}"
     group: "{{ user }}"
 # install go
@@ -34,4 +34,4 @@
 # install gopls
 - name: install gopls
   become: '{{ user }}'
-  command: GO111MODULE=on go get golang.org/x/tools/gopls@latest
+  command: "GO111MODULE=on go get golang.org/x/tools/gopls@latest"
