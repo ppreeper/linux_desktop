@@ -18,8 +18,9 @@
   apt:
     name:
       - vim
+      - neovim
     state: absent
-- name: nvim update
+- name: nvimup
   template:
     src: "bin/nvimup"
     dest: "{{ home }}/bin/"
@@ -40,13 +41,6 @@
     src: "nvim/init.vim"
     dest: "{{ config }}/nvim/init.vim"
     mode: "0644"
-    owner: "{{ user }}"
-    group: "{{ user }}"
-- name: nvim update
-  template:
-    src: "bin/nvimuj"
-    dest: "{{ home }}/bin/"
-    mode: "0755"
     owner: "{{ user }}"
     group: "{{ user }}"
 
