@@ -6,3 +6,12 @@
   apt:
     deb: "https://releases.hashicorp.com/vagrant/{{ VAGRANT_VERSION }}/vagrant_{{ VAGRANT_VERSION }}_x86_64.deb"
     state: present
+- name: vagrant cli helpers
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    mode: "{{ item.mode }}"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+  with_items:
+    - { src: "bin/vagrantup", dest: "{{ home }}/bin/", mode: "0755" }
