@@ -4,10 +4,15 @@
   apt_key:
     url: "https://syncthing.net/release-key.txt"
     state: present
+- name: syncthing repository stat
+  stat:
+    path: "/etc/apt/sources.list.d/syncthing.list"
+  register: stat_result
 - name: syncthing repository remove
   file:
     path: "/etc/apt/sources.list.d/syncthing.list"
     state: absent
+  when: stat_result.stat.exists
 - name: syncthing repository add
   apt_repository:
     validate_certs: no
@@ -21,10 +26,15 @@
     - syncthing
     state: latest
 # nextcloud-client
-- name: nextcloud desktop client repo remove
+- name: nextcloud-client repository stat
+  stat:
+    path: "/etc/apt/sources.list.d/nextcloud-client.list"
+  register: stat_result
+- name: nextcloud-client repo remove
   file:
     path: "/etc/apt/sources.list.d/nextcloud-client.list"
     state: absent
+  when: stat_result.stat.exists
 - name: nextcloud desktop client repo add
   apt_repository:
     validate_certs: no
