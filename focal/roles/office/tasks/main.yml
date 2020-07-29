@@ -3,6 +3,7 @@
   file:
     path: "/etc/apt/sources.list.d/libreoffice.list"
     state: absent
+    force: yes
 - name: libreoffice repository add
   apt_repository:
     validate_certs: no
