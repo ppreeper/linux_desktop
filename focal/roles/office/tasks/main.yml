@@ -1,8 +1,9 @@
 ---
-- name: libreoffice repository remove
+- name: libreoffice repository stat
   stat:
     path: "/etc/apt/sources.list.d/libreoffice.list"
   register: stat_result
+- name: libreoffice repository remove
   file:
     path: "/etc/apt/sources.list.d/libreoffice.list"
     state: absent
