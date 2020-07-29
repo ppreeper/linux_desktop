@@ -7,17 +7,27 @@
     update_cache: yes
     force_apt_get: yes
 
+# pre-req
+- name: git
+  apt:
+    name:
+      - git
+    state: present
 # neovim setup
 - name: vim purge
   apt:
     name:
       - vim
     state: absent
-- name: neovim
-  apt:
-    name:
-      - neovim
-    state: present
+- name: nvim update
+  template:
+    src: "bin/nvimup"
+    dest: "{{ home }}/bin/"
+    mode: "0755"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: nvim install
+  command: "{{ home }}/bin/nvimup"
 # neovim config
 - name: add nvim dir
   file:
@@ -29,9 +39,14 @@
   template:
     src: "nvim/init.vim"
     dest: "{{ config }}/nvim/init.vim"
-- name: init.vim chown
-  file:
-    path: "{{ config }}/nvim/init.vim"
+    mode: "0644"
+    owner: "{{ user }}"
+    group: "{{ user }}"
+- name: nvim update
+  template:
+    src: "bin/nvimuj"
+    dest: "{{ home }}/bin/"
+    mode: "0755"
     owner: "{{ user }}"
     group: "{{ user }}"
 
