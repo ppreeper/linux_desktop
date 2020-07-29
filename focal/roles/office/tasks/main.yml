@@ -1,11 +1,22 @@
 ---
+- name: libreoffice repository remove
+  file:
+    path: "/etc/apt/sources.list.d/libreoffice.list"
+    state: absent
 - name: libreoffice repository add
   apt_repository:
     validate_certs: no
     repo: "ppa:libreoffice/ppa"
-    update_cache: yes
+    state: present
+    filename: libreoffice
+- name: libreoffice repository amd64
+  replace:
+    path: "/etc/apt/sources.list.d/libreoffice.list"
+    regexp: 'deb[ \t].*http'
+    replace: 'deb [arch=amd64] http'
 - name: libreoffice
   apt:
     name:
     - libreoffice
     state: latest
+    update_cache: yes
