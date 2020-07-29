@@ -1,0 +1,18 @@
+---
+- name: postgresql repo key
+  apt_key:
+    url: "https://www.postgresql.org/media/keys/ACCC4CF8.asc"
+    state: present
+- name: postgres repository remove
+  apt_repository:
+    validate_certs: no
+    repo: "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename|lower }}-pgdg main"
+    state: absent
+    filename: postgres
+- name: postgres repository add
+  apt_repository:
+    validate_certs: no
+    repo: "deb [arch=amd64] http://apt.postgresql.org/pub/repos/apt/ {{ ansible_lsb.codename|lower }}-pgdg main"
+    state: present
+    filename: postgres
+    update_cache: yes
