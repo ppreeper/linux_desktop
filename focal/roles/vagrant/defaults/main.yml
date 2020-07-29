@@ -1,0 +1,6 @@
+---
+home: "{{lookup('env', 'HOME')}}"
+config: "{{lookup('env', 'HOME')}}/.config"
+local: "{{lookup('env', 'HOME')}}/.local"
+user: "{{lookup('env', 'USER')}}"
+VAGRANT_VERSION: "2.2.9"

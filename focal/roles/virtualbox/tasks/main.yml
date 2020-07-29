@@ -1,0 +1,7 @@
+---
+- name: virtualbox
+  apt:
+    name:
+    - virtualbox
+    - virtualbox-guest-additions-iso
+    state: present

@@ -1,0 +1,8 @@
+---
+- import_role:
+    name: virtualbox
+
+- name: vagrant
+  apt:
+    deb: "https://releases.hashicorp.com/vagrant/{{ VAGRANT_VERSION }}/vagrant_{{ VAGRANT_VERSION }}_x86_64.deb"
+    state: present
